@@ -121,28 +121,21 @@
        
 
           try {
-              // Enviar datos al servidor (API)
-              const { data } = await axios.post('/api/v1/users/register', {
-                  username, email, password
-              });
+    // Enviar datos al servidor (API)
+    const { data } = await axios.post('/api/v1/users/register', {
+        username, email, password
+    });
 
-              const token = localStorage.getItem('token');
-                const response = await axios.post('/api/v1/users/register', data, {
-                headers: {
-                        'Authorization': `Bearer ${token}`
-                        }
-                    });
-
-              if (data.ok) {
-                  alert('Registro exitoso. Por favor, inicia sesión.');
-                  window.location.href = '/login';  // Redirigir a la página de login
-              } else {
-                  alert(data.msg || 'Hubo un error al registrar. Intenta nuevamente.');
-              }
-          } catch (error) {
-              console.error('Error al registrar:', error);
-              alert('Ocurrió un error, por favor intente más tarde.');
-          }
+    if (data.ok) {
+        alert('Registro exitoso. Por favor, inicia sesión.');
+        window.location.href = '/login';  // Redirigir a la página de login
+    } else {
+        alert(data.msg || 'Hubo un error al registrar. Intenta nuevamente.');
+    }
+} catch (error) {
+    console.error('Error al registrar:', error);
+    alert('Ocurrió un error, por favor intente más tarde.');
+}
       });
   </script>
     </body>
