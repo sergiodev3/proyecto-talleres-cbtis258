@@ -1,0 +1,1467 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="./cbtis258-logo.webp">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Dashboard Admin - CBTIS 258</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Animation library for notifications -->
+    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+    <!-- Light Bootstrap Table core CSS -->
+    <link href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+    <!-- CSS for Demo Purpose -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+    <!-- Fonts and icons -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    
+    <style>
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
+        }
+        .stats-card {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .user-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn-action {
+            margin: 2px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        .filter-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .create-instructor-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="assets/img/maestro.jpeg">
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="" class="simple-text">
+                    <i class="pe-7s-shield"></i> ADMIN PANEL
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li class="active">
+                    <a href="#" onclick="showSection('dashboard')" data-section="dashboard">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('usuarios')" data-section="usuarios">
+                        <i class="pe-7s-users"></i>
+                        <p>Gestión de Usuarios</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('instructores')" data-section="instructores">
+                        <i class="pe-7s-user"></i>
+                        <p>Crear Instructores</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('reportes')" data-section="reportes">
+                        <i class="pe-7s-note2"></i>
+                        <p>Reportes</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('talleres')" data-section="talleres">
+                        <i class="pe-7s-science"></i>
+                        <p>Gestión Talleres</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="pe-7s-power"></i>
+                        <p>Cerrar Sesión</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+		<nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Panel de Administración - CBTIS 258</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" id="adminName">
+                                <i class="pe-7s-user"></i> Cargando...
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                
+                <!-- Sección Dashboard Principal -->
+                <div id="dashboard" class="section-content active">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><i class="pe-7s-graph"></i> Dashboard Principal</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Estadísticas Generales -->
+                    <div class="row" id="statsContainer">
+                        <!-- Las estadísticas se cargarán dinámicamente -->
+                    </div>
+                    
+                    <!-- Actividad Reciente -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Actividad Reciente del Sistema</h4>
+                                </div>
+                                <div class="content">
+                                    <div id="actividadReciente">
+                                        Cargando actividad reciente...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Gestión de Usuarios -->
+                <div id="usuarios" class="section-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><i class="pe-7s-users"></i> Gestión de Usuarios</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="filter-section">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Tipo de Usuario:</label>
+                                        <select id="filterTipoUsuario" class="form-control">
+                                            <option value="">Todos</option>
+                                            <option value="alumno">Alumnos</option>
+                                            <option value="instructor">Instructores</option>
+                                            <option value="admin">Administradores</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Buscar:</label>
+                                        <input type="text" id="searchUsuarios" class="form-control" placeholder="Nombre o email...">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>&nbsp;</label><br>
+                                        <button onclick="filtrarUsuarios()" class="btn btn-primary">Filtrar</button>
+                                        <button onclick="cargarUsuarios()" class="btn btn-default">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabla de Usuarios -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="user-table">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Lista de Usuarios</h4>
+                                    </div>
+                                    <div class="content table-responsive table-full-width">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <th>Tipo</th>
+                                                    <th>Estado</th>
+                                                    <th>Fecha Registro</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="usuariosTableBody">
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Cargando usuarios...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Crear Instructores -->
+                <div id="instructores" class="section-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><i class="pe-7s-user"></i> Crear Nuevo Instructor</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="create-instructor-form">
+                                <h4>Formulario de Instructor</h4>
+                                <form id="createInstructorForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nombre *</label>
+                                                <input type="text" name="nombre" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Apellido Paterno *</label>
+                                                <input type="text" name="apellido_paterno" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Apellido Materno</label>
+                                                <input type="text" name="apellido_materno" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email *</label>
+                                                <input type="email" name="email" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Contraseña *</label>
+                                                <input type="password" name="password" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Especialidad *</label>
+                                                <input type="text" name="especialidad" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="pe-7s-add-user"></i> Crear Instructor
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Instructores Activos</h4>
+                                </div>
+                                <div class="content">
+                                    <div id="instructoresActivos">
+                                        Cargando...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Reportes -->
+                <div id="reportes" class="section-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><i class="pe-7s-note2"></i> Reportes y Estadísticas</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Reporte de Inscripciones</h4>
+                                </div>
+                                <div class="content">
+                                    <button onclick="generarReporteInscripciones()" class="btn btn-primary btn-block">
+                                        <i class="pe-7s-download"></i> Generar Reporte de Inscripciones
+                                    </button>
+                                    <div id="reporteInscripciones" class="mt-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Reporte de Actividad</h4>
+                                </div>
+                                <div class="content">
+                                    <button onclick="generarReporteActividad()" class="btn btn-info btn-block">
+                                        <i class="pe-7s-graph1"></i> Generar Reporte de Actividad
+                                    </button>
+                                    <div id="reporteActividad" class="mt-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lista de Talleres -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Todos los Talleres</h4>
+                                </div>
+                                <div class="content table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Categoría</th>
+                                                <th>Instructor</th>
+                                                <th>Inscritos</th>
+                                                <th>Cupo Máximo</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="talleresReporteBody">
+                                            <tr>
+                                                <td colspan="6" class="text-center">Cargando talleres...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Gestión de Talleres -->
+                <div id="talleres" class="section-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><i class="pe-7s-science"></i> Gestión de Talleres</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón para crear nuevo taller -->
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <button onclick="mostrarFormCrearTaller()" class="btn btn-success btn-fill">
+                                <i class="pe-7s-plus"></i> Crear Nuevo Taller
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulario de creación/edición de taller (oculto por defecto) -->
+                    <div class="row" id="formTallerContainer" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title" id="formTallerTitulo">Crear Nuevo Taller</h4>
+                                </div>
+                                <div class="content">
+                                    <form id="tallerForm">
+                                        <input type="hidden" id="tallerId" name="id">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Nombre del Taller *</label>
+                                                    <input type="text" id="tallerNombre" name="nombre" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Categoría *</label>
+                                                    <select id="tallerCategoria" name="categoria" class="form-control" required>
+                                                        <option value="">Seleccione...</option>
+                                                        <option value="culturales">Culturales</option>
+                                                        <option value="deportes">Deportes</option>
+                                                        <option value="civicos">Cívicos</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Descripción</label>
+                                                    <textarea id="tallerDescripcion" name="descripcion" class="form-control" rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Instructor</label>
+                                                    <select id="tallerInstructor" name="instructor_id" class="form-control">
+                                                        <option value="">Sin asignar</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Cupo Máximo *</label>
+                                                    <input type="number" id="tallerCupo" name="cupo_maximo" class="form-control" min="1" max="100" value="25" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Estado</label>
+                                                    <select id="tallerActivo" name="activo" class="form-control">
+                                                        <option value="true">Activo</option>
+                                                        <option value="false">Inactivo</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Horario</label>
+                                                    <input type="text" id="tallerHorario" name="horario" class="form-control" placeholder="Ej: Lunes y Miércoles 3-5 PM">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Lugar</label>
+                                                    <input type="text" id="tallerLugar" name="lugar" class="form-control" placeholder="Ej: Aula 101">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <button type="button" onclick="cancelarFormTaller()" class="btn btn-default">
+                                                <i class="pe-7s-close"></i> Cancelar
+                                            </button>
+                                            <button type="submit" class="btn btn-info btn-fill">
+                                                <i class="pe-7s-check"></i> Guardar Taller
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabla de talleres -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Lista de Talleres</h4>
+                                </div>
+                                <div class="content table-responsive">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Categoría</th>
+                                                <th>Instructor</th>
+                                                <th>Inscritos/Cupo</th>
+                                                <th>Horario</th>
+                                                <th>Estado</th>
+                                                <th style="width: 200px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="talleresTableBody">
+                                            <tr>
+                                                <td colspan="7" class="text-center">Cargando talleres...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                               Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="assets/js/chartist.min.js"></script>
+    <script src="assets/js/bootstrap-notify.js"></script>
+	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+	<script src="assets/js/demo.js"></script>
+    
+    <!-- Axios para peticiones HTTP -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script>
+        // Configuración global
+        const API_BASE_URL = 'http://localhost:5000/api';
+        let authToken = localStorage.getItem('token');
+        
+        // Configurar axios con token por defecto
+        if (authToken) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+        }
+        
+        // Verificar autenticación al cargar la página
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!authToken) {
+                alert('Sesión no válida. Redirigiendo al login...');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                console.log('🔑 Token encontrado:', authToken ? 'Sí' : 'No');
+                console.log('🌐 Realizando petición a:', `${API_BASE_URL}/auth/profile`);
+                
+                // Verificar token y obtener perfil
+                const response = await axios.get(`${API_BASE_URL}/auth/profile`);
+                
+                console.log('✅ Respuesta del servidor:', response.data);
+                const user = response.data.data || response.data.user; // Soportar ambos formatos
+                
+                console.log('👤 Usuario recibido:', user);
+                console.log('👤 Usuario tipo:', user?.tipo_usuario);
+                
+                if (!user) {
+                    throw new Error('No se pudo obtener la información del usuario');
+                }
+                
+                if (user.tipo_usuario !== 'admin') {
+                    alert('Acceso denegado. Solo administradores pueden acceder a este panel.');
+                    window.location.href = 'index.html';
+                    return;
+                }
+                
+                // Mostrar nombre del admin
+                document.getElementById('adminName').innerHTML = `<i class="pe-7s-user"></i> ${user.email}`;
+                
+                console.log('📊 Iniciando carga de datos del dashboard...');
+                
+                // Configurar event listeners primero (cuando el DOM ya está listo)
+                configurarEventListeners();
+                
+                // Cargar datos iniciales con manejo de errores individual (no debe interrumpir el flujo)
+                cargarDashboard().catch(err => {
+                    console.error('❌ Error cargando dashboard:', err);
+                    console.error('Detalles:', err.response?.data);
+                });
+                
+                cargarUsuarios().catch(err => {
+                    console.error('❌ Error cargando usuarios:', err);
+                    console.error('Detalles:', err.response?.data);
+                });
+                
+                cargarTalleresReporte().catch(err => {
+                    console.error('❌ Error cargando talleres:', err);
+                    console.error('Detalles:', err.response?.data);
+                });
+                
+                cargarTalleres().catch(err => {
+                    console.error('❌ Error cargando gestión de talleres:', err);
+                    console.error('Detalles:', err.response?.data);
+                });
+                
+                cargarInstructoresActivos().catch(err => {
+                    console.error('❌ Error cargando instructores activos:', err);
+                    console.error('Detalles:', err.response?.data);
+                });
+                
+            } catch (error) {
+                console.error('❌ Error de autenticación:', error);
+                console.error('❌ Error completo:', JSON.stringify(error, null, 2));
+                console.error('❌ Response status:', error.response?.status);
+                console.error('❌ Response data:', error.response?.data);
+                console.error('❌ Request config:', error.config);
+                alert('Sesión expirada. Redirigiendo al login...');
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Configurar todos los event listeners
+        function configurarEventListeners() {
+            try {
+                console.log('🔧 Configurando event listeners...');
+                
+                // Event listeners para filtros de usuarios (se ejecutan automáticamente)
+                const filterTipoUsuario = document.getElementById('filterTipoUsuario');
+                if (filterTipoUsuario) {
+                    filterTipoUsuario.addEventListener('change', function() {
+                        aplicarFiltrosUsuarios();
+                    });
+                }
+                
+                const searchUsuarios = document.getElementById('searchUsuarios');
+                if (searchUsuarios) {
+                    searchUsuarios.addEventListener('input', function() {
+                        clearTimeout(window.searchUsuariosTimeout);
+                        window.searchUsuariosTimeout = setTimeout(() => {
+                            aplicarFiltrosUsuarios();
+                        }, 500); // Debounce de 500ms
+                    });
+                }
+                
+                // Event listener para crear instructor
+                const createInstructorForm = document.getElementById('createInstructorForm');
+                if (createInstructorForm) {
+                    createInstructorForm.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const formData = new FormData(e.target);
+                        const instructorData = Object.fromEntries(formData.entries());
+                        
+                        try {
+                            const response = await axios.post(`${API_BASE_URL}/admin/usuarios/instructor`, instructorData);
+                            
+                            alert('Instructor creado exitosamente');
+                            e.target.reset();
+                            await cargarUsuarios();
+                            await cargarInstructoresActivos(); // Actualizar lista de instructores activos
+                            
+                        } catch (error) {
+                            console.error('Error al crear instructor:', error);
+                            alert(error.response?.data?.message || 'Error al crear instructor');
+                        }
+                    });
+                }
+                
+                // Event listener para el formulario de taller
+                const tallerForm = document.getElementById('tallerForm');
+                if (tallerForm) {
+                    tallerForm.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const tallerId = document.getElementById('tallerId').value;
+                        const formData = new FormData(e.target);
+                        const tallerData = {
+                            nombre: formData.get('nombre'),
+                            descripcion: formData.get('descripcion'),
+                            categoria: formData.get('categoria'),
+                            instructor_id: formData.get('instructor_id') || null,
+                            cupo_maximo: parseInt(formData.get('cupo_maximo')),
+                            horario: formData.get('horario'),
+                            lugar: formData.get('lugar'),
+                            activo: formData.get('activo') === 'true'
+                        };
+                        
+                        try {
+                            if (tallerId) {
+                                // Actualizar taller existente
+                                await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}`, tallerData);
+                                alert('Taller actualizado exitosamente');
+                            } else {
+                                // Crear nuevo taller
+                                await axios.post(`${API_BASE_URL}/admin/talleres`, tallerData);
+                                alert('Taller creado exitosamente');
+                            }
+                            
+                            cancelarFormTaller();
+                            await cargarTalleres();
+                            await cargarTalleresReporte();
+                            
+                        } catch (error) {
+                            console.error('❌ Error al guardar taller:', error);
+                            alert(error.response?.data?.message || 'Error al guardar el taller');
+                        }
+                    });
+                }
+                
+                console.log('✅ Event listeners configurados correctamente');
+                
+            } catch (error) {
+                console.error('❌ Error al configurar event listeners:', error);
+                // No relanzar el error para que no interrumpa el flujo
+            }
+        }
+        
+        // Navegación entre secciones
+        function showSection(sectionName) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Quitar clase active de sidebar
+            document.querySelectorAll('.sidebar .nav li').forEach(li => {
+                li.classList.remove('active');
+            });
+            
+            // Mostrar sección seleccionada
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Agregar clase active al elemento del sidebar
+            document.querySelector(`[data-section="${sectionName}"]`).parentElement.classList.add('active');
+        }
+        
+        // Cargar dashboard principal
+        async function cargarDashboard() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/dashboard`);
+                const data = response.data.data;
+                const estadisticas = data.estadisticas;
+                const actividad = data.actividad_reciente;
+                
+                console.log('📊 Datos del dashboard:', data);
+                console.log('📊 Estadísticas:', estadisticas);
+                
+                // Crear cards de estadísticas
+                const statsContainer = document.getElementById('statsContainer');
+                statsContainer.innerHTML = `
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="pe-7s-users text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Usuarios</p>
+                                            ${estadisticas.usuarios.total_usuarios || 0}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="pe-7s-study"></i> Alumnos: ${estadisticas.usuarios.total_alumnos || 0} | 
+                                        <i class="pe-7s-user"></i> Instructores: ${estadisticas.usuarios.total_instructores || 0}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="pe-7s-science text-info"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Talleres</p>
+                                            ${estadisticas.talleres.total_talleres || 0}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="pe-7s-check"></i> Activos: ${estadisticas.talleres.talleres_activos || 0}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="pe-7s-note2 text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Inscripciones</p>
+                                            ${estadisticas.inscripciones.total_inscripciones || 0}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="pe-7s-check"></i> Activas: ${estadisticas.inscripciones.inscripciones_activas || 0}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="pe-7s-bell text-danger"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Avisos</p>
+                                            ${estadisticas.avisos.total_avisos || 0}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="pe-7s-attention"></i> Importantes: ${estadisticas.avisos.avisos_importantes || 0}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Mostrar actividad reciente
+                const actividadContainer = document.getElementById('actividadReciente');
+                if (actividad && actividad.length > 0) {
+                    actividadContainer.innerHTML = `
+                        <ul class="list-unstyled">
+                            ${actividad.map(act => `
+                                <li class="mb-2">
+                                    <i class="pe-7s-${act.tipo === 'inscripcion' ? 'note' : 'bell'}"></i>
+                                    <strong>${act.usuario}</strong> - ${act.detalle}
+                                    <small class="text-muted">(${new Date(act.fecha).toLocaleDateString()})</small>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+                } else {
+                    actividadContainer.innerHTML = '<p class="text-muted">No hay actividad reciente</p>';
+                }
+                
+            } catch (error) {
+                console.error('❌ Error al cargar dashboard:', error);
+                console.error('Detalles del error:', error.response?.data);
+                document.getElementById('statsContainer').innerHTML = `
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> No se pudieron cargar las estadísticas del dashboard.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Cargar lista de usuarios
+        async function cargarUsuarios(filtros = {}) {
+            try {
+                // Construir query params
+                const params = new URLSearchParams();
+                if (filtros.tipo_usuario) params.append('tipo_usuario', filtros.tipo_usuario);
+                if (filtros.search) params.append('search', filtros.search);
+                if (filtros.activo !== undefined) params.append('activo', filtros.activo);
+                
+                const url = `${API_BASE_URL}/admin/usuarios${params.toString() ? '?' + params.toString() : ''}`;
+                console.log('🔍 Cargando usuarios con URL:', url);
+                
+                const response = await axios.get(url);
+                const usuarios = response.data.data;
+                
+                console.log(`📋 ${usuarios.length} usuarios cargados`);
+                
+                const tbody = document.getElementById('usuariosTableBody');
+                
+                if (usuarios.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No se encontraron usuarios</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = usuarios.map(usuario => `
+                    <tr>
+                        <td>${usuario.email}</td>
+                        <td><span class="label label-${usuario.tipo_usuario === 'admin' ? 'danger' : usuario.tipo_usuario === 'instructor' ? 'warning' : 'info'}">${usuario.tipo_usuario}</span></td>
+                        <td><span class="label label-${usuario.activo ? 'success' : 'default'}">${usuario.activo ? 'Activo' : 'Inactivo'}</span></td>
+                        <td>${new Date(usuario.fecha_registro).toLocaleDateString()}</td>
+                        <td>
+                            <button onclick="cambiarEstadoUsuario('${usuario.id}', ${!usuario.activo})" class="btn btn-action btn-${usuario.activo ? 'warning' : 'success'} btn-xs">
+                                ${usuario.activo ? 'Desactivar' : 'Activar'}
+                            </button>
+                            <button onclick="cambiarPasswordUsuario('${usuario.id}')" class="btn btn-action btn-info btn-xs">
+                                Cambiar Password
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('❌ Error al cargar usuarios:', error);
+                document.getElementById('usuariosTableBody').innerHTML = '<tr><td colspan="5" class="text-center text-danger">Error al cargar usuarios</td></tr>';
+            }
+        }
+        
+        // Aplicar filtros de usuarios
+        function aplicarFiltrosUsuarios() {
+            const filtros = {
+                tipo_usuario: document.getElementById('filterTipoUsuario').value,
+                search: document.getElementById('searchUsuarios').value.trim()
+            };
+            
+            console.log('🔍 Aplicando filtros:', filtros);
+            cargarUsuarios(filtros);
+        }
+        
+        // Cambiar estado de usuario
+        async function cambiarEstadoUsuario(userId, nuevoEstado) {
+            try {
+                await axios.put(`${API_BASE_URL}/admin/usuarios/${userId}/status`, {
+                    activo: nuevoEstado
+                });
+                
+                alert(`Usuario ${nuevoEstado ? 'activado' : 'desactivado'} exitosamente`);
+                await cargarUsuarios();
+                
+            } catch (error) {
+                console.error('Error al cambiar estado:', error);
+                alert('Error al cambiar estado del usuario');
+            }
+        }
+        
+        // Cambiar contraseña de usuario
+        async function cambiarPasswordUsuario(userId) {
+            const nuevaPassword = prompt('Ingrese la nueva contraseña (mínimo 8 caracteres):');
+            if (!nuevaPassword) return;
+            
+            if (nuevaPassword.length < 8) {
+                alert('La contraseña debe tener al menos 8 caracteres');
+                return;
+            }
+            
+            try {
+                await axios.put(`${API_BASE_URL}/admin/usuarios/${userId}/password`, {
+                    newPassword: nuevaPassword  // Corregido: era 'password'
+                });
+                
+                alert('Contraseña cambiada exitosamente');
+                
+            } catch (error) {
+                console.error('Error al cambiar contraseña:', error);
+                alert(error.response?.data?.message || 'Error al cambiar contraseña');
+            }
+        }
+        
+        // Generar reporte de inscripciones
+        async function generarReporteInscripciones() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/reportes/inscripciones`);
+                const reporte = response.data.data;
+                
+                const container = document.getElementById('reporteInscripciones');
+                container.innerHTML = `
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Taller</th>
+                                    <th>Inscritos</th>
+                                    <th>Cupo</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${reporte.map(item => `
+                                    <tr>
+                                        <td>${item.taller_nombre}</td>
+                                        <td>${item.total_inscritos}</td>
+                                        <td>${item.cupo_maximo}</td>
+                                        <td>${Math.round((item.total_inscritos / item.cupo_maximo) * 100)}%</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error al generar reporte:', error);
+                alert('Error al generar reporte de inscripciones');
+            }
+        }
+        
+        // Generar reporte de actividad
+        async function generarReporteActividad() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/reportes/actividad`);
+                const actividad = response.data.data;
+                
+                const container = document.getElementById('reporteActividad');
+                container.innerHTML = `
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        ${actividad.map(item => `
+                            <div class="alert alert-info">
+                                <strong>${item.tipo_actividad}</strong><br>
+                                <small>${new Date(item.fecha).toLocaleString()}</small>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error al generar reporte de actividad:', error);
+                alert('Error al generar reporte de actividad');
+            }
+        }
+        
+        // Cargar talleres para reporte
+        async function cargarTalleresReporte() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/talleres`);
+                const talleres = response.data.data || response.data;
+                
+                const tbody = document.getElementById('talleresReporteBody');
+                tbody.innerHTML = talleres.map(taller => `
+                    <tr>
+                        <td>${taller.nombre}</td>
+                        <td><span class="label label-primary">${taller.categoria}</span></td>
+                        <td>${taller.instructor_nombre || 'Sin asignar'}</td>
+                        <td>${taller.inscritos_count || 0}</td>
+                        <td>${taller.cupo_maximo}</td>
+                        <td><span class="label label-${taller.activo ? 'success' : 'default'}">${taller.activo ? 'Activo' : 'Inactivo'}</span></td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error al cargar talleres:', error);
+                document.getElementById('talleresReporteBody').innerHTML = '<tr><td colspan="6" class="text-center text-danger">Error al cargar talleres</td></tr>';
+            }
+        }
+        
+        // Filtrar usuarios
+        function filtrarUsuarios() {
+            // Esta función se puede expandir para implementar filtros más complejos
+            cargarUsuarios();
+        }
+        
+        // ==================== GESTIÓN DE INSTRUCTORES ====================
+        
+        // Cargar lista de instructores activos
+        async function cargarInstructoresActivos() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/instructores`);
+                const instructores = response.data.data;
+                
+                console.log(`👨‍🏫 ${instructores.length} instructores activos cargados`);
+                
+                const container = document.getElementById('instructoresActivos');
+                
+                if (instructores.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-center">No hay instructores registrados</p>';
+                    return;
+                }
+                
+                container.innerHTML = `
+                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                        <table class="table table-sm table-hover">
+                            <tbody>
+                                ${instructores.map(inst => {
+                                    const nombreCompleto = `${inst.nombre} ${inst.apellido_paterno}${inst.apellido_materno ? ' ' + inst.apellido_materno : ''}`;
+                                    return `
+                                        <tr>
+                                            <td>
+                                                <strong>${nombreCompleto}</strong><br>
+                                                <small class="text-muted">${inst.email}</small><br>
+                                                <small><i class="pe-7s-study"></i> ${inst.especialidad || 'Sin especialidad'}</small>
+                                            </td>
+                                            <td class="text-right" style="vertical-align: middle;">
+                                                <button onclick="editarInstructor('${inst.usuario_id}')" 
+                                                        class="btn btn-info btn-xs" 
+                                                        title="Editar">
+                                                    <i class="pe-7s-pen"></i>
+                                                </button>
+                                                <button onclick="cambiarEstadoUsuario('${inst.usuario_id}', ${!inst.activo})" 
+                                                        class="btn btn-${inst.activo ? 'warning' : 'success'} btn-xs" 
+                                                        title="${inst.activo ? 'Desactivar' : 'Activar'}">
+                                                    <i class="pe-7s-${inst.activo ? 'close-circle' : 'check'}"></i>
+                                                </button>
+                                                <button onclick="eliminarInstructor('${inst.usuario_id}')" 
+                                                        class="btn btn-danger btn-xs" 
+                                                        title="Eliminar">
+                                                    <i class="pe-7s-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('❌ Error al cargar instructores activos:', error);
+                document.getElementById('instructoresActivos').innerHTML = '<p class="text-danger text-center">Error al cargar instructores</p>';
+            }
+        }
+        
+        // Editar instructor
+        async function editarInstructor(usuarioId) {
+            try {
+                // Obtener datos del instructor
+                const response = await axios.get(`${API_BASE_URL}/admin/usuarios/${usuarioId}`);
+                const instructor = response.data.data;
+                
+                // Preguntar qué desea editar
+                const opcion = prompt(
+                    `Editando: ${instructor.email}\n\n` +
+                    `1. Cambiar contraseña\n` +
+                    `2. Editar datos del perfil (nombre, apellidos, especialidad)\n\n` +
+                    `Ingrese el número de la opción:`
+                );
+                
+                if (opcion === '1') {
+                    // Cambiar contraseña
+                    cambiarPasswordUsuario(usuarioId);
+                } else if (opcion === '2') {
+                    // Editar perfil
+                    await editarPerfilInstructor(usuarioId, instructor);
+                }
+                
+            } catch (error) {
+                console.error('❌ Error al editar instructor:', error);
+                alert('Error al cargar los datos del instructor');
+            }
+        }
+        
+        // Editar perfil de instructor
+        async function editarPerfilInstructor(usuarioId, instructor) {
+            // Solicitar nuevos datos
+            const nombre = prompt('Nombre:', instructor.perfil?.nombre || '');
+            if (!nombre) return;
+            
+            const apellido_paterno = prompt('Apellido Paterno:', instructor.perfil?.apellido_paterno || '');
+            if (!apellido_paterno) return;
+            
+            const apellido_materno = prompt('Apellido Materno:', instructor.perfil?.apellido_materno || '');
+            
+            const especialidad = prompt('Especialidad:', instructor.perfil?.especialidad || '');
+            
+            try {
+                await axios.put(`${API_BASE_URL}/admin/instructores/${usuarioId}`, {
+                    nombre,
+                    apellido_paterno,
+                    apellido_materno,
+                    especialidad
+                });
+                
+                alert('Perfil de instructor actualizado exitosamente');
+                await cargarInstructoresActivos();
+                
+            } catch (error) {
+                console.error('❌ Error al actualizar perfil:', error);
+                alert(error.response?.data?.message || 'Error al actualizar el perfil');
+            }
+        }
+        
+        // Eliminar instructor
+        async function eliminarInstructor(usuarioId) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este instructor? Esta acción no se puede deshacer.\n\nNota: Si el instructor tiene talleres asignados, primero debes reasignarlos.')) {
+                return;
+            }
+            
+            try {
+                await axios.delete(`${API_BASE_URL}/admin/usuarios/${usuarioId}`);
+                
+                alert('Instructor eliminado exitosamente');
+                await cargarInstructoresActivos();
+                await cargarUsuarios();
+                
+            } catch (error) {
+                console.error('❌ Error al eliminar instructor:', error);
+                alert(error.response?.data?.message || 'Error al eliminar el instructor');
+            }
+        }
+        
+        // ==================== FIN GESTIÓN DE INSTRUCTORES ====================
+        
+        // ==================== GESTIÓN DE TALLERES ====================
+        
+        // Cargar lista de talleres
+        async function cargarTalleres() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/talleres`);
+                const talleres = response.data.data;
+                
+                console.log(`📚 ${talleres.length} talleres cargados`);
+                
+                const tbody = document.getElementById('talleresTableBody');
+                
+                if (talleres.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No hay talleres registrados</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = talleres.map(taller => `
+                    <tr>
+                        <td><strong>${taller.nombre}</strong></td>
+                        <td><span class="label label-default">${taller.categoria}</span></td>
+                        <td>${taller.instructor_nombre || '<span class="text-muted">Sin asignar</span>'}</td>
+                        <td>
+                            <span class="badge ${taller.inscritos >= taller.cupo_maximo ? 'badge-danger' : 'badge-info'}">
+                                ${taller.inscritos || 0}/${taller.cupo_maximo}
+                            </span>
+                        </td>
+                        <td><small>${taller.horario || '-'}</small></td>
+                        <td><span class="label label-${taller.activo ? 'success' : 'default'}">${taller.activo ? 'Activo' : 'Inactivo'}</span></td>
+                        <td>
+                            <button onclick="editarTaller('${taller.id}')" class="btn btn-info btn-xs" title="Editar">
+                                <i class="pe-7s-pen"></i>
+                            </button>
+                            <button onclick="asignarInstructor('${taller.id}')" class="btn btn-warning btn-xs" title="Asignar Instructor">
+                                <i class="pe-7s-user"></i>
+                            </button>
+                            <button onclick="cambiarEstadoTaller('${taller.id}', ${!taller.activo})" class="btn btn-${taller.activo ? 'default' : 'success'} btn-xs" title="${taller.activo ? 'Desactivar' : 'Activar'}">
+                                <i class="pe-7s-${taller.activo ? 'close-circle' : 'check'}"></i>
+                            </button>
+                            <button onclick="eliminarTaller('${taller.id}')" class="btn btn-danger btn-xs" title="Eliminar">
+                                <i class="pe-7s-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('❌ Error al cargar talleres:', error);
+                document.getElementById('talleresTableBody').innerHTML = '<tr><td colspan="7" class="text-center text-danger">Error al cargar talleres</td></tr>';
+            }
+        }
+        
+        // Cargar lista de instructores disponibles
+        async function cargarInstructores() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/instructores`);
+                const instructores = response.data.data;
+                
+                console.log('👨‍🏫 Instructores cargados:', instructores);
+                
+                const select = document.getElementById('tallerInstructor');
+                select.innerHTML = '<option value="">Sin asignar</option>' + 
+                    instructores.map(inst => {
+                        const nombreCompleto = `${inst.nombre} ${inst.apellido_paterno}${inst.apellido_materno ? ' ' + inst.apellido_materno : ''}`;
+                        return `<option value="${inst.perfil_id}">${nombreCompleto} (${inst.email})</option>`;
+                    }).join('');
+                    
+            } catch (error) {
+                console.error('❌ Error al cargar instructores:', error);
+            }
+        }
+        
+        // Mostrar formulario de crear taller
+        function mostrarFormCrearTaller() {
+            document.getElementById('formTallerContainer').style.display = 'block';
+            document.getElementById('formTallerTitulo').textContent = 'Crear Nuevo Taller';
+            document.getElementById('tallerForm').reset();
+            document.getElementById('tallerId').value = '';
+            cargarInstructores();
+            
+            // Scroll al formulario
+            document.getElementById('formTallerContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Cancelar formulario de taller
+        function cancelarFormTaller() {
+            document.getElementById('formTallerContainer').style.display = 'none';
+            document.getElementById('tallerForm').reset();
+        }
+        
+        // Editar taller
+        async function editarTaller(tallerId) {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/talleres/${tallerId}`);
+                const taller = response.data.data;
+                
+                // Cargar instructores primero
+                await cargarInstructores();
+                
+                // Llenar formulario
+                document.getElementById('formTallerTitulo').textContent = 'Editar Taller';
+                document.getElementById('tallerId').value = taller.id;
+                document.getElementById('tallerNombre').value = taller.nombre;
+                document.getElementById('tallerDescripcion').value = taller.descripcion || '';
+                document.getElementById('tallerCategoria').value = taller.categoria;
+                document.getElementById('tallerInstructor').value = taller.instructor_id || '';
+                document.getElementById('tallerCupo').value = taller.cupo_maximo;
+                document.getElementById('tallerHorario').value = taller.horario || '';
+                document.getElementById('tallerLugar').value = taller.lugar || '';
+                document.getElementById('tallerActivo').value = taller.activo.toString();
+                
+                // Mostrar formulario
+                document.getElementById('formTallerContainer').style.display = 'block';
+                document.getElementById('formTallerContainer').scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('❌ Error al cargar taller:', error);
+                alert('Error al cargar los datos del taller');
+            }
+        }
+        
+        // Asignar o cambiar instructor
+        async function asignarInstructor(tallerId) {
+            try {
+                // Obtener lista de instructores (con perfil_id correcto)
+                const response = await axios.get(`${API_BASE_URL}/admin/instructores`);
+                const instructores = response.data.data;
+                
+                // Crear opciones para el prompt
+                let mensaje = 'Selecciona el instructor:\n\n';
+                instructores.forEach((inst, index) => {
+                    const nombreCompleto = `${inst.nombre} ${inst.apellido_paterno}${inst.apellido_materno ? ' ' + inst.apellido_materno : ''}`;
+                    mensaje += `${index + 1}. ${nombreCompleto} (${inst.email})\n`;
+                });
+                mensaje += '\n0. Sin asignar (remover instructor)';
+                
+                const seleccion = prompt(mensaje + '\n\nIngresa el número:');
+                
+                if (seleccion === null) return; // Cancelado
+                
+                const index = parseInt(seleccion) - 1;
+                let instructorId = null;
+                
+                if (index >= 0 && index < instructores.length) {
+                    instructorId = instructores[index].perfil_id; // Usar perfil_id en lugar de id
+                }
+                
+                // Actualizar taller con el nuevo instructor
+                await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}`, {
+                    instructor_id: instructorId
+                });
+                
+                alert('Instructor asignado exitosamente');
+                await cargarTalleres();
+                await cargarTalleresReporte();
+                
+            } catch (error) {
+                console.error('❌ Error al asignar instructor:', error);
+                alert(error.response?.data?.message || 'Error al asignar instructor');
+            }
+        }
+        
+        // Cambiar estado de taller (activar/desactivar)
+        async function cambiarEstadoTaller(tallerId, nuevoEstado) {
+            try {
+                await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}/status`, {
+                    activo: nuevoEstado
+                });
+                
+                alert(`Taller ${nuevoEstado ? 'activado' : 'desactivado'} exitosamente`);
+                await cargarTalleres();
+                await cargarTalleresReporte();
+                
+            } catch (error) {
+                console.error('❌ Error al cambiar estado:', error);
+                alert('Error al cambiar el estado del taller');
+            }
+        }
+        
+        // Eliminar taller
+        async function eliminarTaller(tallerId) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este taller? Esta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            try {
+                await axios.delete(`${API_BASE_URL}/admin/talleres/${tallerId}`);
+                
+                alert('Taller eliminado exitosamente');
+                await cargarTalleres();
+                await cargarTalleresReporte();
+                
+            } catch (error) {
+                console.error('❌ Error al eliminar taller:', error);
+                alert(error.response?.data?.message || 'Error al eliminar el taller');
+            }
+        }
+        
+        // ==================== FIN GESTIÓN DE TALLERES ====================
+        
+        // Cerrar sesión
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+</html>

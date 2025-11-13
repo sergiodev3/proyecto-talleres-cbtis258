@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="./cbtis258-logo.webp">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Dashboard Instructor</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css' rel='stylesheet' />
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="assets/img/maestro.jpeg">
+
+    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="" class="simple-text">
+                    DASHBOARD
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                </li>
+                <li class="active" id="menu-perfil">
+                    <a href="javascript:void(0)" onclick="mostrarSeccion('perfil')">
+                        <i class="pe-7s-user"></i>
+                        <p>Perfil Usuario</p>
+                    </a>
+                </li>
+                <li id="menu-calendario">
+                    <a href="javascript:void(0)" onclick="mostrarSeccion('calendario')">
+                      <i class="pe-7s-date"></i>
+                        <p>Calendario</p>
+                    </a>
+                </li>
+                <li id="menu-avisos">
+                    <a href="javascript:void(0)" onclick="mostrarSeccion('avisos')">
+                       <i class="pe-7s-pin"></i>
+                        <p>Avisos</p>
+                    </a>
+                </li>
+                <li id="menu-alumnos">
+                    <a href="javascript:void(0)" onclick="mostrarSeccion('alumnos')">
+                        <i class="pe-7s-users"></i>
+                        <p>Alumnos inscritos</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+		<nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Usuario</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                   
+
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        
+                        <li>
+                            <a href="#" onclick="cerrarSesion()">
+                                <p>Salir</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg hidden-md"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content" id="seccion-perfil">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Perfil</h4>
+                            </div>
+                            <div class="content">
+                                <form onsubmit="actualizarPerfil(event)">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Plantel</label>
+                                                <input type="text" class="form-control" disabled placeholder="Plantel" value="CBTis No.258 Mariano Escobedo">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nombre del instructor</label>
+                                                <input type="text" id="nombre" class="form-control" placeholder="Nombre(s)" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="apellidos">Apellidos</label>
+                                                <input type="text" id="apellidos" class="form-control" placeholder="Apellido Paterno Materno" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Especialidad</label>
+                                                <input type="text" id="especialidad" class="form-control" placeholder="Ej: Educación Física, Artes, Música">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Teléfono</label>
+                                                <input type="tel" id="telefono" class="form-control" placeholder="Número de teléfono personal">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Contacto de emergencia</label>
+                                                <input type="text" id="contacto_emergencia" class="form-control" placeholder="Nombre del contacto">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Número de emergencia</label>
+                                                <input type="tel" id="telefono_emergencia" class="form-control" placeholder="Teléfono del contacto">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Dirección</label>
+                                                <input type="text" id="direccion" class="form-control" placeholder="Dirección completa">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Descripción del instructor</label>
+                                                <textarea rows="5" id="descripcion" class="form-control" placeholder="Descripción, logros y habilidades"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Actualizar Perfil</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-user">
+                            <div class="image">
+                                <img src="./assets/img/combr-fond.png" alt="..."/>
+                            </div>
+                            <div class="content">
+                                <div class="author">
+                                     <a href="#">
+                                    <img class="avatar border-gray" src="assets/img/user-img.png" alt="..."/>
+
+                                      <h4 class="title" id="instructor-name">Instructor<br />
+                                         <small id="instructor-email">@instructor</small>
+                                      </h4>
+                                    </a>
+                                </div>
+                                <p class="description text-center" id="instructor-descripcion">
+                                    Cargando información...
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Calendario -->
+        <div class="content" id="seccion-calendario" style="display: none;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Calendario de Eventos</h4>
+                                <p class="category">Gestiona las fechas importantes de tus talleres</p>
+                                <button class="btn btn-info btn-fill" onclick="mostrarModalEvento()">
+                                    <i class="pe-7s-plus"></i> Nuevo Evento
+                                </button>
+                            </div>
+                            <div class="content">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal para crear/editar evento -->
+                <div id="modalEvento" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.4);">
+                    <div style="background-color:#fefefe; margin:5% auto; padding:20px; border:1px solid #888; width:50%; border-radius:5px;">
+                        <span onclick="cerrarModalEvento()" style="color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+                        <h3>Crear Evento</h3>
+                        <form id="formEvento" onsubmit="guardarEvento(event)">
+                            <div class="form-group">
+                                <label>Taller *</label>
+                                <select id="evento-taller" class="form-control" required>
+                                    <option value="">Selecciona un taller...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Título *</label>
+                                <input type="text" id="evento-titulo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción</label>
+                                <textarea id="evento-descripcion" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Evento *</label>
+                                <select id="evento-tipo" class="form-control" required>
+                                    <option value="evento">Evento</option>
+                                    <option value="examen">Examen</option>
+                                    <option value="entrega">Entrega</option>
+                                    <option value="practica">Práctica</option>
+                                    <option value="reunion">Reunión</option>
+                                    <option value="suspension">Suspensión</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha *</label>
+                                <input type="date" id="evento-fecha" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-fill">Guardar Evento</button>
+                            <button type="button" class="btn btn-default" onclick="cerrarModalEvento()">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Avisos -->
+        <div class="content" id="seccion-avisos" style="display: none;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Avisos y Notificaciones</h4>
+                                <p class="category">Publica avisos importantes para tus alumnos</p>
+                            </div>
+                            <div class="content">
+                                <p>Sección en desarrollo...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Alumnos -->
+        <div class="content" id="seccion-alumnos" style="display: none;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Alumnos Inscritos</h4>
+                                <p class="category">Lista de alumnos en tus talleres</p>
+                            </div>
+                            <div class="content">
+                                <p>Sección en desarrollo...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                               Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
+	
+	<!-- FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/locales/es.js'></script>
+
+    <script>
+        // Configuración de la API
+        const API_BASE_URL = 'http://localhost:5000/api';
+        let calendar; // Variable global para el calendario
+        
+        // Función para cambiar entre secciones
+        function mostrarSeccion(seccion) {
+            // Ocultar todas las secciones
+            document.getElementById('seccion-perfil').style.display = 'none';
+            document.getElementById('seccion-calendario').style.display = 'none';
+            document.getElementById('seccion-avisos').style.display = 'none';
+            document.getElementById('seccion-alumnos').style.display = 'none';
+            
+            // Remover clase active de todos los menús
+            document.getElementById('menu-perfil').classList.remove('active');
+            document.getElementById('menu-calendario').classList.remove('active');
+            document.getElementById('menu-avisos').classList.remove('active');
+            document.getElementById('menu-alumnos').classList.remove('active');
+            
+            // Mostrar la sección seleccionada y activar su menú
+            document.getElementById('seccion-' + seccion).style.display = 'block';
+            document.getElementById('menu-' + seccion).classList.add('active');
+            
+            // Si se muestra el calendario, renderizarlo
+            if (seccion === 'calendario') {
+                setTimeout(() => {
+                    if (calendar) {
+                        calendar.render();
+                        calendar.refetchEvents();
+                    } else {
+                        inicializarCalendario();
+                    }
+                }, 100);
+            }
+        }
+        
+        // Inicializar FullCalendar
+        function inicializarCalendario() {
+            const calendarEl = document.getElementById('calendar');
+            
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                },
+                buttonText: {
+                    today: 'Hoy',
+                    month: 'Mes',
+                    week: 'Semana',
+                    list: 'Lista'
+                },
+                events: function(info, successCallback, failureCallback) {
+                    cargarEventos(info.start, info.end, successCallback, failureCallback);
+                },
+                eventClick: function(info) {
+                    mostrarDetalleEvento(info.event);
+                },
+                dateClick: function(info) {
+                    mostrarModalEvento(info.dateStr);
+                },
+                height: 'auto'
+            });
+            
+            calendar.render();
+        }
+        
+        // Cargar eventos del backend
+        async function cargarEventos(start, end, successCallback, failureCallback) {
+            try {
+                const startDate = start.toISOString().split('T')[0];
+                const endDate = end.toISOString().split('T')[0];
+                
+                const response = await axios.get(`${API_BASE_URL}/calendario/rango`, {
+                    params: {
+                        fechaInicio: startDate,
+                        fechaFin: endDate
+                    }
+                });
+                
+                console.log('📅 Respuesta del calendario:', response.data);
+                
+                // El backend devuelve un objeto agrupado por fecha: { "2025-11-14": [eventos] }
+                // Necesitamos convertirlo a un array plano
+                const eventosData = response.data.data || {};
+                let eventos = [];
+                
+                // Si es un objeto (agrupado por fecha), convertirlo a array
+                if (typeof eventosData === 'object' && !Array.isArray(eventosData)) {
+                    // Iterar sobre cada fecha
+                    Object.keys(eventosData).forEach(fecha => {
+                        const eventosDeFecha = eventosData[fecha];
+                        if (Array.isArray(eventosDeFecha)) {
+                            eventosDeFecha.forEach(evento => {
+                                eventos.push({
+                                    id: evento.id,
+                                    title: evento.titulo,
+                                    start: evento.fecha_evento,
+                                    description: evento.descripcion,
+                                    tipo: evento.tipo_evento,
+                                    taller: evento.taller_nombre,
+                                    backgroundColor: getColorByType(evento.tipo_evento),
+                                    borderColor: getColorByType(evento.tipo_evento)
+                                });
+                            });
+                        }
+                    });
+                } else if (Array.isArray(eventosData)) {
+                    // Si ya es un array, procesarlo directamente
+                    eventos = eventosData.map(evento => ({
+                        id: evento.id,
+                        title: evento.titulo,
+                        start: evento.fecha_evento,
+                        description: evento.descripcion,
+                        tipo: evento.tipo_evento,
+                        taller: evento.taller_nombre,
+                        backgroundColor: getColorByType(evento.tipo_evento),
+                        borderColor: getColorByType(evento.tipo_evento)
+                    }));
+                }
+                
+                console.log('📅 Eventos procesados:', eventos);
+                successCallback(eventos);
+                
+            } catch (error) {
+                console.error('❌ Error al cargar eventos:', error);
+                console.error('❌ Detalles del error:', error.response?.data);
+                // No fallar, simplemente retornar array vacío
+                successCallback([]);
+            }
+        }
+        
+        // Obtener color según tipo de evento
+        function getColorByType(tipo) {
+            const colores = {
+                'evento': '#5bc0de',      // Azul claro
+                'examen': '#d9534f',      // Rojo
+                'entrega': '#f0ad4e',     // Naranja
+                'practica': '#5cb85c',    // Verde
+                'reunion': '#9B59B6',     // Morado
+                'suspension': '#95a5a6'   // Gris
+            };
+            return colores[tipo] || '#5bc0de';
+        }
+        
+        // Mostrar formulario para crear evento
+        function mostrarFormEvento(fecha = null) {
+            const titulo = prompt('Título del evento:');
+            if (!titulo) return;
+            
+            const descripcion = prompt('Descripción (opcional):');
+            const tipo = prompt('Tipo de evento (evento/examen/entrega/practica/reunion/suspension):', 'evento');
+            const fechaEvento = fecha || prompt('Fecha del evento (YYYY-MM-DD):');
+            
+            if (!fechaEvento) {
+                alert('La fecha es requerida');
+                return;
+            }
+            
+            crearEvento({
+                titulo,
+                descripcion,
+                tipo_evento: tipo,
+                fecha_evento: fechaEvento
+            });
+        }
+        
+        // Mostrar modal para crear evento
+        async function mostrarModalEvento(fecha = null) {
+            // Cargar talleres del instructor
+            await cargarTalleresInstructor();
+            
+            // Establecer fecha si se proporcionó
+            if (fecha) {
+                document.getElementById('evento-fecha').value = fecha;
+            } else {
+                document.getElementById('evento-fecha').value = new Date().toISOString().split('T')[0];
+            }
+            
+            // Limpiar formulario
+            document.getElementById('evento-titulo').value = '';
+            document.getElementById('evento-descripcion').value = '';
+            document.getElementById('evento-tipo').value = 'evento';
+            
+            // Mostrar modal
+            document.getElementById('modalEvento').style.display = 'block';
+        }
+        
+        // Cerrar modal
+        function cerrarModalEvento() {
+            document.getElementById('modalEvento').style.display = 'none';
+        }
+        
+        // Cargar talleres del instructor
+        async function cargarTalleresInstructor() {
+            try {
+                // Usar el endpoint específico para instructores
+                const response = await axios.get(`${API_BASE_URL}/talleres/mis-talleres`);
+                
+                console.log('👨‍🏫 Respuesta mis-talleres:', response.data);
+                
+                const misTalleres = response.data.data || [];
+                
+                const selectTaller = document.getElementById('evento-taller');
+                selectTaller.innerHTML = '<option value="">Selecciona un taller...</option>';
+                
+                if (misTalleres.length === 0) {
+                    selectTaller.innerHTML = '<option value="">No tienes talleres asignados</option>';
+                    alert('No tienes talleres asignados. Contacta al administrador para que te asigne un taller.');
+                    return;
+                }
+                
+                misTalleres.forEach(taller => {
+                    const option = document.createElement('option');
+                    option.value = taller.id;
+                    option.textContent = `${taller.nombre} (${taller.categoria})`;
+                    selectTaller.appendChild(option);
+                });
+                
+                console.log('✅ Talleres cargados:', misTalleres.length);
+                
+            } catch (error) {
+                console.error('❌ Error al cargar talleres:', error);
+                console.error('❌ Detalles:', error.response?.data);
+                alert('Error al cargar la lista de talleres: ' + (error.response?.data?.message || error.message));
+            }
+        }
+        
+        // Guardar evento desde el formulario
+        async function guardarEvento(event) {
+            event.preventDefault();
+            
+            const eventoData = {
+                taller_id: document.getElementById('evento-taller').value,
+                titulo: document.getElementById('evento-titulo').value,
+                descripcion: document.getElementById('evento-descripcion').value,
+                tipo_evento: document.getElementById('evento-tipo').value,
+                fecha_evento: document.getElementById('evento-fecha').value
+            };
+            
+            await crearEvento(eventoData);
+            cerrarModalEvento();
+        }
+        
+        // Crear evento en el backend
+        async function crearEvento(eventoData) {
+            try {
+                const response = await axios.post(`${API_BASE_URL}/calendario`, eventoData);
+                
+                alert('✅ Evento creado exitosamente');
+                calendar.refetchEvents();
+                
+            } catch (error) {
+                console.error('❌ Error al crear evento:', error);
+                alert(error.response?.data?.message || 'Error al crear el evento');
+            }
+        }
+        
+        // Mostrar detalle del evento
+        function mostrarDetalleEvento(evento) {
+            const mensaje = `
+Título: ${evento.title}
+Fecha: ${evento.start.toLocaleDateString('es-MX')}
+Tipo: ${evento.extendedProps.tipo}
+${evento.extendedProps.taller ? 'Taller: ' + evento.extendedProps.taller : ''}
+${evento.extendedProps.description ? 'Descripción: ' + evento.extendedProps.description : ''}
+
+¿Deseas eliminar este evento?
+            `.trim();
+            
+            if (confirm(mensaje)) {
+                eliminarEvento(evento.id);
+            }
+        }
+        
+        // Eliminar evento
+        async function eliminarEvento(eventoId) {
+            try {
+                await axios.delete(`${API_BASE_URL}/calendario/${eventoId}`);
+                
+                alert('✅ Evento eliminado exitosamente');
+                calendar.refetchEvents();
+                
+            } catch (error) {
+                console.error('❌ Error al eliminar evento:', error);
+                alert(error.response?.data?.message || 'Error al eliminar el evento');
+            }
+        }
+        
+        // Verificar autenticación al cargar la página
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🔧 Iniciando dashboard de instructor...');
+            
+            const token = localStorage.getItem('token');
+            console.log('🔑 Token encontrado:', token ? 'Sí' : 'No');
+            
+            if (!token) {
+                alert('Debes iniciar sesión para acceder al dashboard');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Verificar que axios esté disponible
+            if (typeof axios === 'undefined') {
+                console.error('❌ Axios no está disponible');
+                alert('Error: La librería axios no se cargó correctamente');
+                return;
+            }
+            
+            console.log('✅ Axios disponible');
+            
+            // Configurar axios con el token
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            console.log('✅ Token configurado en axios');
+            
+            try {
+                console.log('🔄 Verificando autenticación con:', `${API_BASE_URL}/auth/verify`);
+                
+                // Verificar que el usuario sea instructor
+                const response = await axios.get(`${API_BASE_URL}/auth/verify`);
+                
+                console.log('✅ Respuesta de verificación:', response.data);
+                
+                if (response.data.user.tipo_usuario !== 'instructor') {
+                    alert('No tienes permisos para acceder a esta página');
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                console.log('✅ Usuario es instructor, cargando perfil...');
+                
+                // Cargar datos del perfil
+                await cargarPerfil();
+                
+            } catch (error) {
+                console.error('❌ Error al verificar autenticación:', error);
+                console.error('❌ Error completo:', {
+                    message: error.message,
+                    response: error.response,
+                    request: error.request,
+                    config: error.config
+                });
+                
+                alert('Sesión expirada. Por favor, inicia sesión nuevamente');
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Cargar perfil del instructor
+        async function cargarPerfil() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/auth/profile`);
+                const perfil = response.data.data;
+                
+                console.log('📊 Perfil cargado:', perfil);
+                console.log('📦 Estructura del perfil:', JSON.stringify(perfil, null, 2));
+                
+                // Llenar el formulario con los datos del perfil
+                const nombreInput = document.getElementById('nombre');
+                const apellidosInput = document.getElementById('apellidos');
+                const especialidadInput = document.getElementById('especialidad');
+                const telefonoInput = document.getElementById('telefono');
+                const contactoInput = document.getElementById('contacto_emergencia');
+                const telefonoEmergenciaInput = document.getElementById('telefono_emergencia');
+                const direccionInput = document.getElementById('direccion');
+                const descripcionInput = document.getElementById('descripcion');
+                
+                if (nombreInput) nombreInput.value = perfil.perfil?.nombre || '';
+                if (apellidosInput) apellidosInput.value = 
+                    `${perfil.perfil?.apellido_paterno || ''} ${perfil.perfil?.apellido_materno || ''}`.trim();
+                if (especialidadInput) especialidadInput.value = perfil.perfil?.especialidad || '';
+                if (telefonoInput) telefonoInput.value = perfil.perfil?.telefono || '';
+                if (contactoInput) contactoInput.value = perfil.perfil?.contacto_emergencia || '';
+                if (telefonoEmergenciaInput) telefonoEmergenciaInput.value = perfil.perfil?.telefono_emergencia || '';
+                if (direccionInput) direccionInput.value = perfil.perfil?.direccion || '';
+                if (descripcionInput) descripcionInput.value = perfil.perfil?.descripcion || '';
+                
+                // Mostrar información en la tarjeta del lado derecho
+                const nombreCompleto = `${perfil.perfil?.nombre || ''} ${perfil.perfil?.apellido_paterno || ''} ${perfil.perfil?.apellido_materno || ''}`.trim();
+                
+                const instructorNameEl = document.getElementById('instructor-name');
+                const instructorEmailEl = document.getElementById('instructor-email');
+                const instructorDescEl = document.getElementById('instructor-descripcion');
+                const navbarBrandEl = document.querySelector('.navbar-brand');
+                
+                if (instructorNameEl) instructorNameEl.textContent = nombreCompleto || 'Sin nombre';
+                if (instructorEmailEl) instructorEmailEl.textContent = perfil.email || '';
+                if (instructorDescEl) instructorDescEl.textContent = perfil.perfil?.descripcion || 'Sin descripción';
+                if (navbarBrandEl) navbarBrandEl.textContent = nombreCompleto || 'Instructor';
+                
+                console.log('✅ Perfil cargado exitosamente en el frontend');
+                
+            } catch (error) {
+                console.error('❌ Error al cargar perfil:', error);
+                console.error('❌ Stack trace:', error.stack);
+                alert('Error al cargar la información del perfil');
+            }
+        }
+        
+        // Actualizar perfil
+        async function actualizarPerfil(event) {
+            event.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellidosCompletos = document.getElementById('apellidos').value.trim();
+            const especialidad = document.getElementById('especialidad').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const contacto_emergencia = document.getElementById('contacto_emergencia').value.trim();
+            const telefono_emergencia = document.getElementById('telefono_emergencia').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const descripcion = document.getElementById('descripcion').value.trim();
+            
+            // Validar campos requeridos
+            if (!nombre || !apellidosCompletos) {
+                alert('Por favor completa los campos de nombre y apellidos');
+                return;
+            }
+            
+            // Separar apellidos (paterno y materno)
+            const apellidos = apellidosCompletos.split(' ');
+            const apellido_paterno = apellidos[0] || '';
+            const apellido_materno = apellidos.slice(1).join(' ') || '';
+            
+            if (!apellido_paterno) {
+                alert('Por favor ingresa al menos un apellido');
+                return;
+            }
+            
+            try {
+                const response = await axios.put(`${API_BASE_URL}/auth/profile`, {
+                    nombre,
+                    apellido_paterno,
+                    apellido_materno,
+                    especialidad,
+                    telefono,
+                    contacto_emergencia,
+                    telefono_emergencia,
+                    direccion,
+                    descripcion
+                });
+                
+                alert('✅ Perfil actualizado exitosamente');
+                
+                // Recargar el perfil para mostrar los cambios
+                await cargarPerfil();
+                
+            } catch (error) {
+                console.error('❌ Error al actualizar perfil:', error);
+                alert(error.response?.data?.message || 'Error al actualizar el perfil');
+            }
+        }
+        
+        // Cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</html>
