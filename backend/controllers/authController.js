@@ -356,7 +356,9 @@ class AuthController {
                     apellido_materno: userWithProfile.alumno_apellido_materno,
                     numero_control: userWithProfile.numero_control,
                     grupo: userWithProfile.grupo,
-                    semestre: userWithProfile.semestre
+                    semestre: userWithProfile.semestre,
+                    telefono: userWithProfile.alumno_telefono,
+                    fecha_nacimiento: userWithProfile.fecha_nacimiento
                 };
             } else if (tipoUsuario === 'instructor') {
                 profileData.perfil = {
@@ -397,7 +399,7 @@ class AuthController {
                 apellidos, // Acepta apellidos completos del frontend
                 numero_control,
                 grupo,
-                especialidad,
+                semestre,
                 telefono,
                 fecha_nacimiento
             } = req.body;
@@ -429,9 +431,9 @@ class AuthController {
             const result = await query(
                 `UPDATE perfiles_alumno 
                  SET nombre = $1, apellido_paterno = $2, apellido_materno = $3, 
-                     numero_control = $4, grupo = $5, telefono = $6, 
-                     fecha_nacimiento = $7, updated_at = CURRENT_TIMESTAMP
-                 WHERE usuario_id = $8
+                     numero_control = $4, grupo = $5, semestre = $6, telefono = $7, 
+                     fecha_nacimiento = $8, updated_at = CURRENT_TIMESTAMP
+                 WHERE usuario_id = $9
                  RETURNING *`,
                 [
                     nombre,
@@ -439,6 +441,7 @@ class AuthController {
                     apellido_materno || null,
                     numero_control,
                     grupo || null,
+                    semestre || null,
                     telefono || null,
                     fecha_nacimiento || null,
                     userId
@@ -462,7 +465,7 @@ class AuthController {
                     apellidos: `${profile.apellido_paterno} ${profile.apellido_materno || ''}`.trim(),
                     numero_control: profile.numero_control,
                     grupo: profile.grupo,
-                    especialidad: especialidad,
+                    semestre: profile.semestre,
                     telefono: profile.telefono,
                     fecha_nacimiento: profile.fecha_nacimiento,
                     perfilCompleto: true

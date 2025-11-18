@@ -43,6 +43,15 @@ router.get('/disponibles',
     TallerController.getTalleresDisponibles
 );
 
+// @route   GET /api/talleres/mis-inscripciones
+// @desc    Obtener inscripciones del alumno autenticado
+// @access  Private - Alumno
+router.get('/mis-inscripciones', 
+    authenticateToken, 
+    authorizeAlumnoAccess,
+    TallerController.getMisInscripciones
+);
+
 // @route   GET /api/talleres/mis-talleres
 // @desc    Obtener talleres del instructor autenticado
 // @access  Private - Instructor

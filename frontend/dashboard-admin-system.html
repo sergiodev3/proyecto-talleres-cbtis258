@@ -562,6 +562,161 @@
     </div>
 </div>
 
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(45deg, #dc3545 0%, #c82333 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.9;">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <i class="pe-7s-attention" style="font-size: 24px;"></i>
+                    <span id="modalConfirmacionTitulo">Confirmar Acción</span>
+                </h4>
+            </div>
+            <div class="modal-body" id="modalConfirmacionMensaje" style="padding: 25px; font-size: 15px;">
+                <!-- Mensaje dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <i class="pe-7s-close"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="modalConfirmacionBotonConfirmar">
+                    <i class="pe-7s-check"></i> Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Cambiar Contraseña -->
+<div class="modal fade" id="modalCambiarPassword" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.9;">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <i class="pe-7s-lock" style="font-size: 24px;"></i> Cambiar Contraseña
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="formCambiarPassword">
+                    <div class="form-group">
+                        <label>Nueva Contraseña *</label>
+                        <input type="password" class="form-control" id="nuevaPassword" placeholder="Mínimo 8 caracteres" required minlength="8">
+                        <small class="text-muted">La contraseña debe tener al menos 8 caracteres</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Contraseña *</label>
+                        <input type="password" class="form-control" id="confirmarPassword" placeholder="Repite la contraseña" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <i class="pe-7s-close"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="confirmarCambioPassword()">
+                    <i class="pe-7s-check"></i> Cambiar Contraseña
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Instructor -->
+<div class="modal fade" id="modalEditarInstructor" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(45deg, #5bc0de 0%, #31b0d5 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.9;">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <i class="pe-7s-pen" style="font-size: 24px;"></i> Editar Instructor
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarInstructor">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nombre *</label>
+                                <input type="text" class="form-control" id="editNombre" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Apellido Paterno *</label>
+                                <input type="text" class="form-control" id="editApellidoPaterno" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Apellido Materno</label>
+                                <input type="text" class="form-control" id="editApellidoMaterno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Especialidad</label>
+                        <input type="text" class="form-control" id="editEspecialidad" placeholder="Ej: Programación, Matemáticas, etc.">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <i class="pe-7s-close"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-info" onclick="confirmarEditarInstructor()">
+                    <i class="pe-7s-check"></i> Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Asignar Instructor -->
+<div class="modal fade" id="modalAsignarInstructor" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(45deg, #5cb85c 0%, #449d44 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.9;">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <i class="pe-7s-user" style="font-size: 24px;"></i> Asignar Instructor
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">Selecciona un instructor para asignar a este taller:</p>
+                <div class="form-group">
+                    <label>Instructor *</label>
+                    <select class="form-control" id="selectInstructorAsignar" required>
+                        <option value="">Selecciona un instructor...</option>
+                    </select>
+                </div>
+                <div id="instructorInfo" style="display: none; margin-top: 15px; padding: 10px; background: #f9f9f9; border-radius: 4px;">
+                    <!-- Info del instructor seleccionado -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <i class="pe-7s-close"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="confirmarAsignarInstructor()">
+                    <i class="pe-7s-check"></i> Asignar Instructor
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 
@@ -586,11 +741,236 @@
             axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
         }
         
+        // ============================================
+        // FUNCIONES HELPER PARA MODALES
+        // ============================================
+        
+        // Mostrar modal de confirmación
+        function mostrarModalConfirmacion(titulo, mensaje, callback) {
+            document.getElementById('modalConfirmacionTitulo').textContent = titulo;
+            document.getElementById('modalConfirmacionMensaje').innerHTML = mensaje;
+            
+            $('#modalConfirmacionBotonConfirmar').off('click').on('click', function() {
+                $('#modalConfirmacion').modal('hide');
+                if (callback) callback();
+            });
+            
+            $('#modalConfirmacion').modal('show');
+        }
+        
+        // Variables globales para modales
+        let currentUsuarioIdForPassword = null;
+        let currentInstructorData = null;
+        let currentTallerIdForInstructor = null;
+        
+        // Función para mostrar notificaciones personalizadas
+        function mostrarNotificacion(mensaje, tipo = 'success') {
+            // Tipos: success, danger, warning, info
+            const iconos = {
+                success: 'pe-7s-check',
+                danger: 'pe-7s-close-circle',
+                warning: 'pe-7s-attention',
+                info: 'pe-7s-info'
+            };
+            
+            const notificationDiv = document.createElement('div');
+            notificationDiv.className = `alert alert-${tipo} alert-dismissible fade in`;
+            notificationDiv.style = 'position: fixed; top: 70px; right: 20px; z-index: 9999; min-width: 320px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);';
+            notificationDiv.innerHTML = `
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong><i class="${iconos[tipo]}"></i> ${mensaje}</strong>
+            `;
+            document.body.appendChild(notificationDiv);
+            
+            // Auto-remover después de 4 segundos
+            setTimeout(() => {
+                notificationDiv.classList.remove('in');
+                setTimeout(() => notificationDiv.remove(), 300);
+            }, 4000);
+        }
+        
+        // Mostrar modal para cambiar contraseña
+        function mostrarModalCambiarPassword(usuarioId) {
+            currentUsuarioIdForPassword = usuarioId;
+            document.getElementById('nuevaPassword').value = '';
+            document.getElementById('confirmarPassword').value = '';
+            $('#modalCambiarPassword').modal('show');
+        }
+        
+        // Confirmar cambio de contraseña
+        async function confirmarCambioPassword() {
+            const nuevaPassword = document.getElementById('nuevaPassword').value;
+            const confirmarPassword = document.getElementById('confirmarPassword').value;
+            
+            // Validaciones con notificaciones personalizadas
+            if (!nuevaPassword || nuevaPassword.trim() === '') {
+                mostrarNotificacion('Por favor ingresa una contraseña', 'warning');
+                document.getElementById('nuevaPassword').focus();
+                return;
+            }
+            
+            if (nuevaPassword.length < 8) {
+                mostrarNotificacion('La contraseña debe tener al menos 8 caracteres', 'warning');
+                document.getElementById('nuevaPassword').focus();
+                return;
+            }
+            
+            if (!confirmarPassword || confirmarPassword.trim() === '') {
+                mostrarNotificacion('Por favor confirma la contraseña', 'warning');
+                document.getElementById('confirmarPassword').focus();
+                return;
+            }
+            
+            if (nuevaPassword !== confirmarPassword) {
+                mostrarNotificacion('Las contraseñas no coinciden', 'danger');
+                document.getElementById('confirmarPassword').value = '';
+                document.getElementById('confirmarPassword').focus();
+                return;
+            }
+            
+            try {
+                // Enviar con el nombre correcto que espera el backend: newPassword
+                await axios.put(`${API_BASE_URL}/admin/usuarios/${currentUsuarioIdForPassword}/password`, {
+                    newPassword: nuevaPassword
+                });
+                
+                $('#modalCambiarPassword').modal('hide');
+                
+                // Limpiar campos
+                document.getElementById('nuevaPassword').value = '';
+                document.getElementById('confirmarPassword').value = '';
+                
+                mostrarNotificacion('¡Contraseña actualizada exitosamente!', 'success');
+                
+            } catch (error) {
+                console.error('❌ Error al cambiar contraseña:', error);
+                const mensajeError = error.response?.data?.message || 'Error al cambiar la contraseña';
+                mostrarNotificacion(mensajeError, 'danger');
+            }
+        }
+        
+        // Mostrar modal para editar instructor
+        function mostrarModalEditarInstructor(usuarioId, instructor) {
+            currentInstructorData = { usuarioId, instructor };
+            
+            document.getElementById('editNombre').value = instructor.perfil?.nombre || '';
+            document.getElementById('editApellidoPaterno').value = instructor.perfil?.apellido_paterno || '';
+            document.getElementById('editApellidoMaterno').value = instructor.perfil?.apellido_materno || '';
+            document.getElementById('editEspecialidad').value = instructor.perfil?.especialidad || '';
+            
+            $('#modalEditarInstructor').modal('show');
+        }
+        
+        // Confirmar edición de instructor
+        async function confirmarEditarInstructor() {
+            const nombre = document.getElementById('editNombre').value.trim();
+            const apellido_paterno = document.getElementById('editApellidoPaterno').value.trim();
+            const apellido_materno = document.getElementById('editApellidoMaterno').value.trim();
+            const especialidad = document.getElementById('editEspecialidad').value.trim();
+            
+            if (!nombre || !apellido_paterno) {
+                mostrarNotificacion('El nombre y apellido paterno son obligatorios', 'warning');
+                return;
+            }
+            
+            try {
+                await axios.put(`${API_BASE_URL}/admin/instructores/${currentInstructorData.usuarioId}`, {
+                    nombre,
+                    apellido_paterno,
+                    apellido_materno,
+                    especialidad
+                });
+                
+                $('#modalEditarInstructor').modal('hide');
+                mostrarNotificacion('Perfil de instructor actualizado exitosamente', 'success');
+                await cargarInstructoresActivos();
+                
+            } catch (error) {
+                console.error('❌ Error al actualizar perfil:', error);
+                const mensajeError = error.response?.data?.message || 'Error al actualizar el perfil';
+                mostrarNotificacion(mensajeError, 'danger');
+            }
+        }
+        
+        // Mostrar modal para asignar instructor
+        async function mostrarModalAsignarInstructor(tallerId) {
+            currentTallerIdForInstructor = tallerId;
+            
+            // Cargar lista de instructores activos
+            try {
+                const response = await axios.get(`${API_BASE_URL}/admin/instructores`);
+                const instructores = response.data.data || [];
+                
+                const select = document.getElementById('selectInstructorAsignar');
+                select.innerHTML = '<option value="">Selecciona un instructor...</option>';
+                
+                instructores.forEach(instructor => {
+                    const nombreCompleto = `${instructor.nombre || ''} ${instructor.apellido_paterno || ''} ${instructor.apellido_materno || ''}`.trim();
+                    const option = document.createElement('option');
+                    option.value = instructor.perfil_id; // Usar perfil_id como lo requiere el backend
+                    option.textContent = `${nombreCompleto} (${instructor.especialidad || 'Sin especialidad'})`;
+                    option.dataset.instructor = JSON.stringify(instructor);
+                    select.appendChild(option);
+                });
+                
+                // Event listener para mostrar info del instructor
+                select.onchange = function() {
+                    const option = this.options[this.selectedIndex];
+                    if (option.dataset.instructor) {
+                        const instructor = JSON.parse(option.dataset.instructor);
+                        const info = document.getElementById('instructorInfo');
+                        info.style.display = 'block';
+                        info.innerHTML = `
+                            <p style="margin: 5px 0;"><strong>Email:</strong> ${instructor.email}</p>
+                            <p style="margin: 5px 0;"><strong>Especialidad:</strong> ${instructor.especialidad || 'No especificada'}</p>
+                        `;
+                    } else {
+                        document.getElementById('instructorInfo').style.display = 'none';
+                    }
+                };
+                
+                $('#modalAsignarInstructor').modal('show');
+                
+            } catch (error) {
+                console.error('❌ Error al cargar instructores:', error);
+                mostrarNotificacion('Error al cargar la lista de instructores', 'danger');
+            }
+        }
+        
+        // Confirmar asignación de instructor
+        async function confirmarAsignarInstructor() {
+            const instructorId = document.getElementById('selectInstructorAsignar').value;
+            
+            if (!instructorId) {
+                mostrarNotificacion('Debes seleccionar un instructor', 'warning');
+                return;
+            }
+            
+            try {
+                await axios.put(`${API_BASE_URL}/admin/talleres/${currentTallerIdForInstructor}`, {
+                    instructor_id: instructorId
+                });
+                
+                $('#modalAsignarInstructor').modal('hide');
+                mostrarNotificacion('Instructor asignado exitosamente', 'success');
+                await cargarTalleres();
+                
+            } catch (error) {
+                console.error('❌ Error al asignar instructor:', error);
+                const mensajeError = error.response?.data?.message || 'Error al asignar el instructor';
+                mostrarNotificacion(mensajeError, 'danger');
+            }
+        }
+        
+        // ============================================
+        // FIN FUNCIONES HELPER
+        // ============================================
+        
         // Verificar autenticación al cargar la página
         document.addEventListener('DOMContentLoaded', async () => {
             if (!authToken) {
-                alert('Sesión no válida. Redirigiendo al login...');
-                window.location.href = 'login.html';
+                mostrarNotificacion('Sesión no válida. Redirigiendo...', 'warning');
+                setTimeout(() => window.location.href = 'login.html', 1500);
                 return;
             }
             
@@ -612,8 +992,8 @@
                 }
                 
                 if (user.tipo_usuario !== 'admin') {
-                    alert('Acceso denegado. Solo administradores pueden acceder a este panel.');
-                    window.location.href = 'index.html';
+                    mostrarNotificacion('Acceso denegado. Solo administradores.', 'danger');
+                    setTimeout(() => window.location.href = 'index.html', 2000);
                     return;
                 }
                 
@@ -698,14 +1078,14 @@
                         try {
                             const response = await axios.post(`${API_BASE_URL}/admin/usuarios/instructor`, instructorData);
                             
-                            alert('Instructor creado exitosamente');
+                            mostrarNotificacion('Instructor creado exitosamente', 'success');
                             e.target.reset();
                             await cargarUsuarios();
                             await cargarInstructoresActivos(); // Actualizar lista de instructores activos
                             
                         } catch (error) {
                             console.error('Error al crear instructor:', error);
-                            alert(error.response?.data?.message || 'Error al crear instructor');
+                            mostrarNotificacion(error.response?.data?.message || 'Error al crear instructor', 'danger');
                         }
                     });
                 }
@@ -733,11 +1113,11 @@
                             if (tallerId) {
                                 // Actualizar taller existente
                                 await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}`, tallerData);
-                                alert('Taller actualizado exitosamente');
+                                mostrarNotificacion('Taller actualizado exitosamente', 'success');
                             } else {
                                 // Crear nuevo taller
                                 await axios.post(`${API_BASE_URL}/admin/talleres`, tallerData);
-                                alert('Taller creado exitosamente');
+                                mostrarNotificacion('Taller creado exitosamente', 'success');
                             }
                             
                             cancelarFormTaller();
@@ -746,7 +1126,7 @@
                             
                         } catch (error) {
                             console.error('❌ Error al guardar taller:', error);
-                            alert(error.response?.data?.message || 'Error al guardar el taller');
+                            mostrarNotificacion(error.response?.data?.message || 'Error al guardar el taller', 'danger');
                         }
                     });
                 }
@@ -776,6 +1156,22 @@
             
             // Agregar clase active al elemento del sidebar
             document.querySelector(`[data-section="${sectionName}"]`).parentElement.classList.add('active');
+            
+            // Cargar datos específicos de la sección
+            switch(sectionName) {
+                case 'reportes':
+                    cargarTalleresReporte();
+                    break;
+                case 'talleres':
+                    cargarTalleres();
+                    break;
+                case 'instructores':
+                    cargarInstructoresActivos();
+                    break;
+                case 'usuarios':
+                    cargarUsuarios();
+                    break;
+            }
         }
         
         // Cargar dashboard principal
@@ -986,41 +1382,44 @@
         
         // Cambiar estado de usuario
         async function cambiarEstadoUsuario(userId, nuevoEstado) {
-            try {
-                await axios.put(`${API_BASE_URL}/admin/usuarios/${userId}/status`, {
-                    activo: nuevoEstado
-                });
-                
-                alert(`Usuario ${nuevoEstado ? 'activado' : 'desactivado'} exitosamente`);
-                await cargarUsuarios();
-                
-            } catch (error) {
-                console.error('Error al cambiar estado:', error);
-                alert('Error al cambiar estado del usuario');
-            }
+            const accion = nuevoEstado ? 'activar' : 'desactivar';
+            const estadoTexto = nuevoEstado ? 'activado' : 'desactivado';
+            
+            mostrarModalConfirmacion(
+                `${accion.charAt(0).toUpperCase() + accion.slice(1)} Usuario`,
+                `<p>¿Estás seguro de que deseas ${accion} este usuario?</p>`,
+                async function() {
+                    try {
+                        await axios.put(`${API_BASE_URL}/admin/usuarios/${userId}/status`, {
+                            activo: nuevoEstado
+                        });
+                        
+                        // Mostrar mensaje de éxito
+                        const successDiv = document.createElement('div');
+                        successDiv.className = 'alert alert-success alert-dismissible fade in';
+                        successDiv.style = 'position: fixed; top: 70px; right: 20px; z-index: 9999; min-width: 300px;';
+                        successDiv.innerHTML = `
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>¡Éxito!</strong> Usuario ${estadoTexto} correctamente.
+                        `;
+                        document.body.appendChild(successDiv);
+                        setTimeout(() => successDiv.remove(), 3000);
+                        
+                        await cargarUsuarios();
+                        await cargarInstructoresActivos(); // Recargar lista de instructores también
+                        
+                    } catch (error) {
+                        console.error('Error al cambiar estado:', error);
+                        mostrarNotificacion('Error al cambiar estado del usuario', 'danger');
+                    }
+                }
+            );
         }
         
         // Cambiar contraseña de usuario
         async function cambiarPasswordUsuario(userId) {
-            const nuevaPassword = prompt('Ingrese la nueva contraseña (mínimo 8 caracteres):');
-            if (!nuevaPassword) return;
-            
-            if (nuevaPassword.length < 8) {
-                alert('La contraseña debe tener al menos 8 caracteres');
-                return;
-            }
-            
-            try {
-                await axios.put(`${API_BASE_URL}/admin/usuarios/${userId}/password`, {
-                    newPassword: nuevaPassword  // Corregido: era 'password'
-                });
-                
-                alert('Contraseña cambiada exitosamente');
-                
-            } catch (error) {
-                console.error('Error al cambiar contraseña:', error);
-                alert(error.response?.data?.message || 'Error al cambiar contraseña');
-            }
+            // Usar modal personalizado en lugar de prompt
+            mostrarModalCambiarPassword(userId);
         }
         
         // Generar reporte de inscripciones
@@ -1030,34 +1429,65 @@
                 const reporte = response.data.data;
                 
                 const container = document.getElementById('reporteInscripciones');
+                
+                if (!reporte || reporte.length === 0) {
+                    container.innerHTML = '<p class="text-muted">No hay datos de inscripciones disponibles.</p>';
+                    return;
+                }
+                
                 container.innerHTML = `
                     <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                        <table class="table table-sm">
-                            <thead>
+                        <table class="table table-sm table-striped">
+                            <thead style="background-color: #f4f3ef;">
                                 <tr>
                                     <th>Taller</th>
+                                    <th>Categoría</th>
                                     <th>Inscritos</th>
-                                    <th>Cupo</th>
-                                    <th>%</th>
+                                    <th>Cupo Máximo</th>
+                                    <th>Disponibles</th>
+                                    <th>% Ocupación</th>
+                                    <th>Instructor</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${reporte.map(item => `
-                                    <tr>
-                                        <td>${item.taller_nombre}</td>
-                                        <td>${item.total_inscritos}</td>
-                                        <td>${item.cupo_maximo}</td>
-                                        <td>${Math.round((item.total_inscritos / item.cupo_maximo) * 100)}%</td>
-                                    </tr>
-                                `).join('')}
+                                ${reporte.map(item => {
+                                    const inscritos = parseInt(item.inscritos_actuales) || 0;
+                                    const cupoMaximo = parseInt(item.cupo_maximo) || 0;
+                                    const disponibles = parseInt(item.cupos_disponibles) || 0;
+                                    const porcentaje = parseFloat(item.porcentaje_ocupacion) || 0;
+                                    
+                                    // Color del badge según ocupación
+                                    let badgeClass = 'success';
+                                    if (porcentaje >= 90) badgeClass = 'danger';
+                                    else if (porcentaje >= 70) badgeClass = 'warning';
+                                    
+                                    return `
+                                        <tr>
+                                            <td><strong>${item.taller_nombre || 'Sin nombre'}</strong></td>
+                                            <td><span class="label label-info">${item.taller_categoria || 'N/A'}</span></td>
+                                            <td><span class="badge bg-primary">${inscritos}</span></td>
+                                            <td>${cupoMaximo}</td>
+                                            <td><span class="badge bg-${badgeClass}">${disponibles}</span></td>
+                                            <td>
+                                                <div class="progress" style="margin-bottom: 0; height: 20px;">
+                                                    <div class="progress-bar progress-bar-${badgeClass}" style="width: ${porcentaje}%; line-height: 20px;">
+                                                        ${porcentaje.toFixed(1)}%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><small>${item.instructor_nombre || 'Sin asignar'}</small></td>
+                                        </tr>
+                                    `;
+                                }).join('')}
                             </tbody>
                         </table>
                     </div>
+                    <p class="text-muted mt-2"><small><i class="pe-7s-info"></i> Total de talleres activos: ${reporte.length}</small></p>
                 `;
                 
             } catch (error) {
                 console.error('Error al generar reporte:', error);
-                alert('Error al generar reporte de inscripciones');
+                mostrarNotificacion('Error al generar reporte de inscripciones', 'danger');
             }
         }
         
@@ -1069,19 +1499,36 @@
                 
                 const container = document.getElementById('reporteActividad');
                 container.innerHTML = `
-                    <div style="max-height: 400px; overflow-y: auto;">
-                        ${actividad.map(item => `
-                            <div class="alert alert-info">
-                                <strong>${item.tipo_actividad}</strong><br>
-                                <small>${new Date(item.fecha).toLocaleString()}</small>
-                            </div>
-                        `).join('')}
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Inscripciones</th>
+                                    <th>Avisos</th>
+                                    <th>Eventos</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${actividad.map(item => `
+                                    <tr>
+                                        <td>${new Date(item.fecha).toLocaleDateString('es-MX')}</td>
+                                        <td><span class="label label-success">${item.inscripciones || 0}</span></td>
+                                        <td><span class="label label-warning">${item.avisos || 0}</span></td>
+                                        <td><span class="label label-info">${item.eventos || 0}</span></td>
+                                        <td><strong>${item.total_actividad || 0}</strong></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
                     </div>
+                    <p class="text-muted mt-2"><small>Mostrando actividad de los últimos ${response.data.periodo_dias || 30} días</small></p>
                 `;
                 
             } catch (error) {
                 console.error('Error al generar reporte de actividad:', error);
-                alert('Error al generar reporte de actividad');
+                mostrarNotificacion('Error al generar reporte de actividad', 'danger');
             }
         }
         
@@ -1179,79 +1626,76 @@
         // Editar instructor
         async function editarInstructor(usuarioId) {
             try {
-                // Obtener datos del instructor
-                const response = await axios.get(`${API_BASE_URL}/admin/usuarios/${usuarioId}`);
-                const instructor = response.data.data;
+                // Obtener datos del instructor desde la lista actual
+                const instructoresResponse = await axios.get(`${API_BASE_URL}/admin/instructores`);
+                const instructores = instructoresResponse.data.data || [];
+                const instructor = instructores.find(inst => inst.usuario_id === usuarioId);
                 
-                // Preguntar qué desea editar
-                const opcion = prompt(
-                    `Editando: ${instructor.email}\n\n` +
-                    `1. Cambiar contraseña\n` +
-                    `2. Editar datos del perfil (nombre, apellidos, especialidad)\n\n` +
-                    `Ingrese el número de la opción:`
-                );
-                
-                if (opcion === '1') {
-                    // Cambiar contraseña
-                    cambiarPasswordUsuario(usuarioId);
-                } else if (opcion === '2') {
-                    // Editar perfil
-                    await editarPerfilInstructor(usuarioId, instructor);
+                if (!instructor) {
+                    mostrarNotificacion('No se encontró el instructor', 'warning');
+                    return;
                 }
+                
+                // Mostrar modal con opciones de edición
+                const modalHtml = `
+                    <p>¿Qué deseas editar de <strong>${instructor.nombre} ${instructor.apellido_paterno}</strong>?</p>
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-info btn-block" onclick="$('#modalConfirmacion').modal('hide'); cambiarPasswordUsuario('${usuarioId}');">
+                            <i class="pe-7s-lock"></i> Cambiar Contraseña
+                        </button>
+                        <button class="btn btn-primary btn-block" onclick="$('#modalConfirmacion').modal('hide'); editarPerfilInstructor('${usuarioId}', ${JSON.stringify(instructor).replace(/"/g, '&quot;')});" style="margin-top: 10px;">
+                            <i class="pe-7s-note"></i> Editar Perfil (Nombre, Apellidos, Especialidad)
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('modalConfirmacionTitulo').textContent = 'Editar Instructor';
+                document.getElementById('modalConfirmacionMensaje').innerHTML = modalHtml;
+                
+                // Ocultar el botón de confirmar ya que usamos botones personalizados
+                $('#modalConfirmacionBotonConfirmar').hide();
+                
+                $('#modalConfirmacion').on('hidden.bs.modal', function() {
+                    // Restaurar botón de confirmar cuando se cierre
+                    $('#modalConfirmacionBotonConfirmar').show();
+                });
+                
+                $('#modalConfirmacion').modal('show');
                 
             } catch (error) {
                 console.error('❌ Error al editar instructor:', error);
-                alert('Error al cargar los datos del instructor');
+                mostrarNotificacion('Error al cargar los datos del instructor', 'danger');
             }
         }
         
         // Editar perfil de instructor
         async function editarPerfilInstructor(usuarioId, instructor) {
-            // Solicitar nuevos datos
-            const nombre = prompt('Nombre:', instructor.perfil?.nombre || '');
-            if (!nombre) return;
-            
-            const apellido_paterno = prompt('Apellido Paterno:', instructor.perfil?.apellido_paterno || '');
-            if (!apellido_paterno) return;
-            
-            const apellido_materno = prompt('Apellido Materno:', instructor.perfil?.apellido_materno || '');
-            
-            const especialidad = prompt('Especialidad:', instructor.perfil?.especialidad || '');
-            
-            try {
-                await axios.put(`${API_BASE_URL}/admin/instructores/${usuarioId}`, {
-                    nombre,
-                    apellido_paterno,
-                    apellido_materno,
-                    especialidad
-                });
-                
-                alert('Perfil de instructor actualizado exitosamente');
-                await cargarInstructoresActivos();
-                
-            } catch (error) {
-                console.error('❌ Error al actualizar perfil:', error);
-                alert(error.response?.data?.message || 'Error al actualizar el perfil');
-            }
+            // Usar modal personalizado en lugar de prompts múltiples
+            mostrarModalEditarInstructor(usuarioId, instructor);
         }
         
         // Eliminar instructor
         async function eliminarInstructor(usuarioId) {
-            if (!confirm('¿Estás seguro de que deseas eliminar este instructor? Esta acción no se puede deshacer.\n\nNota: Si el instructor tiene talleres asignados, primero debes reasignarlos.')) {
-                return;
-            }
-            
-            try {
-                await axios.delete(`${API_BASE_URL}/admin/usuarios/${usuarioId}`);
-                
-                alert('Instructor eliminado exitosamente');
-                await cargarInstructoresActivos();
-                await cargarUsuarios();
-                
-            } catch (error) {
-                console.error('❌ Error al eliminar instructor:', error);
-                alert(error.response?.data?.message || 'Error al eliminar el instructor');
-            }
+            // Usar modal personalizado en lugar de confirm
+            mostrarModalConfirmacion(
+                'Eliminar Instructor',
+                `<p>¿Estás seguro de que deseas eliminar este instructor?</p>
+                 <p class="text-danger"><strong>Esta acción no se puede deshacer.</strong></p>
+                 <p><small>Nota: Si el instructor tiene talleres asignados, primero debes reasignarlos.</small></p>`,
+                async function() {
+                    try {
+                        await axios.delete(`${API_BASE_URL}/admin/usuarios/${usuarioId}`);
+                        
+                        mostrarNotificacion('Instructor eliminado exitosamente', 'success');
+                        await cargarInstructoresActivos();
+                        await cargarUsuarios();
+                        
+                    } catch (error) {
+                        console.error('❌ Error al eliminar instructor:', error);
+                        mostrarNotificacion(error.response?.data?.message || 'Error al eliminar el instructor', 'danger');
+                    }
+                }
+            );
         }
         
         // ==================== FIN GESTIÓN DE INSTRUCTORES ====================
@@ -1373,85 +1817,66 @@
                 
             } catch (error) {
                 console.error('❌ Error al cargar taller:', error);
-                alert('Error al cargar los datos del taller');
+                mostrarNotificacion('Error al cargar los datos del taller', 'danger');
             }
         }
         
         // Asignar o cambiar instructor
         async function asignarInstructor(tallerId) {
-            try {
-                // Obtener lista de instructores (con perfil_id correcto)
-                const response = await axios.get(`${API_BASE_URL}/admin/instructores`);
-                const instructores = response.data.data;
-                
-                // Crear opciones para el prompt
-                let mensaje = 'Selecciona el instructor:\n\n';
-                instructores.forEach((inst, index) => {
-                    const nombreCompleto = `${inst.nombre} ${inst.apellido_paterno}${inst.apellido_materno ? ' ' + inst.apellido_materno : ''}`;
-                    mensaje += `${index + 1}. ${nombreCompleto} (${inst.email})\n`;
-                });
-                mensaje += '\n0. Sin asignar (remover instructor)';
-                
-                const seleccion = prompt(mensaje + '\n\nIngresa el número:');
-                
-                if (seleccion === null) return; // Cancelado
-                
-                const index = parseInt(seleccion) - 1;
-                let instructorId = null;
-                
-                if (index >= 0 && index < instructores.length) {
-                    instructorId = instructores[index].perfil_id; // Usar perfil_id en lugar de id
-                }
-                
-                // Actualizar taller con el nuevo instructor
-                await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}`, {
-                    instructor_id: instructorId
-                });
-                
-                alert('Instructor asignado exitosamente');
-                await cargarTalleres();
-                await cargarTalleresReporte();
-                
-            } catch (error) {
-                console.error('❌ Error al asignar instructor:', error);
-                alert(error.response?.data?.message || 'Error al asignar instructor');
-            }
+            // Usar modal personalizado en lugar de prompt
+            mostrarModalAsignarInstructor(tallerId);
         }
         
         // Cambiar estado de taller (activar/desactivar)
         async function cambiarEstadoTaller(tallerId, nuevoEstado) {
-            try {
-                await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}/status`, {
-                    activo: nuevoEstado
-                });
-                
-                alert(`Taller ${nuevoEstado ? 'activado' : 'desactivado'} exitosamente`);
-                await cargarTalleres();
-                await cargarTalleresReporte();
-                
-            } catch (error) {
-                console.error('❌ Error al cambiar estado:', error);
-                alert('Error al cambiar el estado del taller');
-            }
+            const accion = nuevoEstado ? 'activar' : 'desactivar';
+            const estadoTexto = nuevoEstado ? 'activado' : 'desactivado';
+            const iconoEstado = nuevoEstado ? 'pe-7s-check' : 'pe-7s-close-circle';
+            const colorEstado = nuevoEstado ? 'success' : 'warning';
+            
+            mostrarModalConfirmacion(
+                `${accion.charAt(0).toUpperCase() + accion.slice(1)} Taller`,
+                `<p>¿Estás seguro de que deseas <strong>${accion}</strong> este taller?</p>
+                 <p class="text-muted"><i class="${iconoEstado}"></i> El taller quedará <strong>${estadoTexto}</strong> en el sistema.</p>`,
+                async function() {
+                    try {
+                        await axios.put(`${API_BASE_URL}/admin/talleres/${tallerId}/status`, {
+                            activo: nuevoEstado
+                        });
+                        
+                        mostrarNotificacion(`Taller ${estadoTexto} exitosamente`, colorEstado);
+                        await cargarTalleres();
+                        await cargarTalleresReporte();
+                        
+                    } catch (error) {
+                        console.error('❌ Error al cambiar estado del taller:', error);
+                        mostrarNotificacion('Error al cambiar el estado del taller', 'danger');
+                    }
+                }
+            );
         }
         
         // Eliminar taller
         async function eliminarTaller(tallerId) {
-            if (!confirm('¿Estás seguro de que deseas eliminar este taller? Esta acción no se puede deshacer.')) {
-                return;
-            }
-            
-            try {
-                await axios.delete(`${API_BASE_URL}/admin/talleres/${tallerId}`);
-                
-                alert('Taller eliminado exitosamente');
-                await cargarTalleres();
-                await cargarTalleresReporte();
-                
-            } catch (error) {
-                console.error('❌ Error al eliminar taller:', error);
-                alert(error.response?.data?.message || 'Error al eliminar el taller');
-            }
+            // Usar modal personalizado en lugar de confirm
+            mostrarModalConfirmacion(
+                'Eliminar Taller',
+                `<p>¿Estás seguro de que deseas eliminar este taller?</p>
+                 <p class="text-danger"><strong>Esta acción no se puede deshacer.</strong></p>`,
+                async function() {
+                    try {
+                        await axios.delete(`${API_BASE_URL}/admin/talleres/${tallerId}`);
+                        
+                        mostrarNotificacion('Taller eliminado exitosamente', 'success');
+                        await cargarTalleres();
+                        await cargarTalleresReporte();
+                        
+                    } catch (error) {
+                        console.error('❌ Error al eliminar taller:', error);
+                        mostrarNotificacion(error.response?.data?.message || 'Error al eliminar el taller', 'danger');
+                    }
+                }
+            );
         }
         
         // ==================== FIN GESTIÓN DE TALLERES ====================

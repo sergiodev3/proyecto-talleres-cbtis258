@@ -330,7 +330,7 @@ class UserModel {
                 u.id, u.email, u.tipo_usuario, u.activo, u.fecha_registro,
                 pa.nombre as alumno_nombre, pa.apellido_paterno as alumno_apellido_paterno,
                 pa.apellido_materno as alumno_apellido_materno, pa.numero_control,
-                pa.grupo, pa.semestre,
+                pa.grupo, pa.semestre, pa.telefono as alumno_telefono, pa.fecha_nacimiento,
                 pi.nombre as instructor_nombre, pi.apellido_paterno as instructor_apellido_paterno,
                 pi.apellido_materno as instructor_apellido_materno, pi.especialidad,
                 pi.telefono as instructor_telefono,

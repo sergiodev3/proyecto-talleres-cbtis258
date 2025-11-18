@@ -89,30 +89,28 @@ export const validateCompleteProfile = [
         .optional()
         .isLength({ min: 1, max: 50 })
         .withMessage('El grupo debe tener entre 1 y 50 caracteres')
-        .matches(/^[a-zA-Z0-9\s]+$/)
+        .matches(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)
         .withMessage('El grupo solo puede contener letras, números y espacios')
         .trim(),
     
-    body('especialidad')
+    body('semestre')
         .optional()
-        .isLength({ min: 2, max: 100 })
-        .withMessage('La especialidad debe tener entre 2 y 100 caracteres')
-        .matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
-        .withMessage('La especialidad solo puede contener letras y espacios')
+        .isLength({ min: 1, max: 10 })
+        .withMessage('El semestre debe tener entre 1 y 10 caracteres')
         .trim(),
     
     body('telefono')
-        .optional()
+        .optional({ nullable: true, checkFalsy: true })
         .matches(/^[\d\s\-\+\(\)]{10,20}$/)
         .withMessage('El teléfono debe ser un número válido de 10-20 dígitos')
         .trim(),
     
     body('fecha_nacimiento')
-        .optional()
+        .optional({ nullable: true, checkFalsy: true })
         .isISO8601()
         .withMessage('La fecha de nacimiento debe ser una fecha válida (YYYY-MM-DD)')
         .custom((value) => {
-            if (value) {
+            if (value && value.trim() !== '') {
                 const date = new Date(value);
                 const now = new Date();
                 const age = Math.floor((now - date) / (365.25 * 24 * 60 * 60 * 1000));

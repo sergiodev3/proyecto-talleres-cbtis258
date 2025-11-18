@@ -476,6 +476,46 @@ class TallerController {
             });
         }
     }
+
+    /**
+     * Obtener inscripciones del alumno autenticado
+     */
+    static async getMisInscripciones(req, res) {
+        try {
+            // Solo para alumnos
+            if (req.user.tipo_usuario !== 'alumno') {
+                return res.status(403).json({
+                    error: 'Acceso denegado',
+                    message: 'Esta funcionalidad es solo para alumnos'
+                });
+            }
+
+            const { estado, limit = 10, offset = 0 } = req.query;
+
+            const inscripciones = await InscripcionModel.findByAlumno(req.alumno.id, {
+                estado: estado || null,
+                limit: parseInt(limit),
+                offset: parseInt(offset)
+            });
+
+            res.json({
+                message: 'Inscripciones obtenidas exitosamente',
+                data: inscripciones,
+                pagination: {
+                    limit: parseInt(limit),
+                    offset: parseInt(offset),
+                    total: inscripciones.length
+                }
+            });
+
+        } catch (error) {
+            console.error('❌ Error al obtener inscripciones:', error);
+            res.status(500).json({
+                error: 'Error interno del servidor',
+                message: 'Error al obtener tus inscripciones'
+            });
+        }
+    }
 }
 
 export default TallerController;

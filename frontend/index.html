@@ -139,7 +139,7 @@
                         <div class="image_3">
                            <img src="img-actu/danza1.jpg" class="image" style="width:100%">
                            <div class="middle">
-                             <a href="#danza"><button class="playnow_bt">Ver mas </button></a> </button>
+                             <button class="playnow_bt" onclick="abrirModalTaller('danza')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">DANZA </h1>
@@ -152,7 +152,7 @@
                         <div class="image_3">
                            <img src="img-actu/ora-3.jpeg" class="image" style="width:100%">
                            <div class="middle">
-                               <a href="#oratoria"><button class="playnow_bt">Ver mas </button></a> </button>
+                               <button class="playnow_bt" onclick="abrirModalTaller('oratoria')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">ORATORIA</h1>
@@ -165,7 +165,7 @@
                         <div class="image_3">
                            <img src="img-actu/music.jpg" class="image" style="width:100%">
                            <div class="middle">
-                              <a href="#musica"><button class="playnow_bt">Ver mas </button></a> </button>
+                              <button class="playnow_bt" onclick="abrirModalTaller('arte')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">Arte</h1>
@@ -184,7 +184,7 @@
                         <div class="image_3">
                            <img src="img-actu/atle3-pica.png" class="image" style="width:100%">
                            <div class="middle">
-                              <a href="#atletismo"><button class="playnow_bt">Ver mas </button></a> </button>
+                              <button class="playnow_bt" onclick="abrirModalTaller('atletismo')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">ATLETISMO</h1>
@@ -197,7 +197,7 @@
                         <div class="image_3">
                            <img src="img-actu/FUT.JPG" class="image" style="width:100%">
                            <div class="middle">
-                               <a href="#futbol"><button class="playnow_bt">Ver mas </button></a> </button>
+                               <button class="playnow_bt" onclick="abrirModalTaller('futbol')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">FUTBOL</h1>
@@ -210,7 +210,7 @@
                         <div class="image_3">
                            <img src="img-actu/BAS.JPG" class="image" style="width:100%">
                            <div class="middle">
-                               <a href="#basquet"><button class="playnow_bt">Ver mas </button></a>
+                               <button class="playnow_bt" onclick="abrirModalTaller('basquet')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">BASQUET</h1>
@@ -223,7 +223,7 @@
                         <div class="image_3">
                            <img src="img-actu/VOL.JPG" class="image" style="width:100%">
                            <div class="middle">
-                             <a href="#voleibol"><button class="playnow_bt">Ver mas </button></a>
+                             <button class="playnow_bt" onclick="abrirModalTaller('voleibol')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">VOLEIBOL</h1>
@@ -244,10 +244,10 @@
                         <div class="image_3">
                            <img src="img-actu/escolt-ind.jpeg" class="image" style="width:100%">
                            <div class="middle">
-                             <a href="#escolta"><button class="playnow_bt">Ver mas </button></a> </button>
+                             <button class="playnow_bt" onclick="abrirModalTaller('escolta')">Ver más</button>
                            </div>
                         </div>
-                        <!-- <h1 class="code_text">Escolta</h1>-->
+                        <h1 class="code_text">Escolta</h1>
                         <p class="there_text"></p>
                         <div class="star_icon">
                     
@@ -257,7 +257,7 @@
                         <div class="image_3">
                            <img src="img-actu/escolt.jpg" class="image" style="width:100%">
                            <div class="middle">
-                               <a href="#escolta"><button class="playnow_bt">Ver mas </button></a> </button>
+                               <button class="playnow_bt" onclick="abrirModalTaller('escolta')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">Escolta</h1>
@@ -270,7 +270,7 @@
                         <div class="image_3">
                            <img src="img-actu/banda-2.jpeg" class="image" style="width:100%">
                            <div class="middle">
-                              <a href="#banda-de-guerra"><button class="playnow_bt">Ver mas </button></a> </button>
+                              <button class="playnow_bt" onclick="abrirModalTaller('banda')">Ver más</button>
                            </div>
                         </div>
                         <h1 class="code_text">BANDA DE GUERRA</h1>
@@ -283,10 +283,10 @@
                         <div class="image_3">
                            <img src="img-actu/ba.jpeg" class="image" style="width:100%">
                                      <div class="middle">
-                              <a href="#banda-de-guerra"><button class="playnow_bt">Ver mas </button></a> </button>
+                              <button class="playnow_bt" onclick="abrirModalTaller('banda')">Ver más</button>
                            </div>
+                        <h1 class="code_text">BANDA DE GUERRA</h1>
                         <p class="there_text"> </p>
-                        <!--  <h1 class="code_text">FUTBOL</h1>-->
                         <div class="star_icon">
                           
                         </div>
@@ -367,6 +367,396 @@
          </div>
       </div>
       <!-- copyright section end -->
+      
+      <!-- Modal de Talleres -->
+      <div id="modalTaller" class="modal-taller">
+         <div class="modal-taller-content">
+            <span class="modal-taller-close" onclick="cerrarModalTaller()">&times;</span>
+            <div class="modal-taller-header">
+               <img id="modalImagen" src="" alt="Taller" class="modal-taller-imagen">
+               <h2 id="modalTitulo" class="modal-taller-titulo"></h2>
+            </div>
+            <div class="modal-taller-body">
+               <div class="modal-info-section">
+                  <i class="fa fa-info-circle"></i>
+                  <div>
+                     <h3>Descripción</h3>
+                     <p id="modalDescripcion"></p>
+                  </div>
+               </div>
+               <div class="modal-info-section">
+                  <i class="fa fa-calendar"></i>
+                  <div>
+                     <h3>Horario</h3>
+                     <p id="modalHorario"></p>
+                  </div>
+               </div>
+               <div class="modal-info-section">
+                  <i class="fa fa-map-marker"></i>
+                  <div>
+                     <h3>Ubicación</h3>
+                     <p id="modalUbicacion"></p>
+                  </div>
+               </div>
+               <div class="modal-info-section">
+                  <i class="fa fa-user"></i>
+                  <div>
+                     <h3>Instructor</h3>
+                     <p id="modalInstructor"></p>
+                  </div>
+               </div>
+               <div class="modal-info-section">
+                  <i class="fa fa-users"></i>
+                  <div>
+                     <h3>Cupo</h3>
+                     <p id="modalCupo"></p>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-taller-footer">
+               <button class="btn-inscribirse" onclick="window.location.href='login.html'">
+                  <i class="fa fa-check-circle"></i> Inscribirse
+               </button>
+            </div>
+         </div>
+      </div>
+
+      <style>
+         /* Modal de Talleres */
+         .modal-taller {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+         }
+
+         @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+         }
+
+         .modal-taller-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            margin: 3% auto;
+            padding: 0;
+            border: none;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.4s ease;
+            overflow: hidden;
+         }
+
+         @keyframes slideDown {
+            from {
+               transform: translateY(-50px);
+               opacity: 0;
+            }
+            to {
+               transform: translateY(0);
+               opacity: 1;
+            }
+         }
+
+         .modal-taller-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            z-index: 10001;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+         }
+
+         .modal-taller-close:hover,
+         .modal-taller-close:focus {
+            background: rgba(255, 0, 0, 0.8);
+            transform: rotate(90deg);
+         }
+
+         .modal-taller-header {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+         }
+
+         .modal-taller-imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+         }
+
+         .modal-taller-titulo {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            color: #fff;
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+            margin: 0;
+         }
+
+         .modal-taller-body {
+            padding: 30px;
+            color: #fff;
+         }
+
+         .modal-info-section {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid #991d1d;
+            transition: all 0.3s ease;
+         }
+
+         .modal-info-section:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+         }
+
+         .modal-info-section i {
+            font-size: 24px;
+            color: #991d1d;
+            margin-right: 20px;
+            margin-top: 5px;
+            min-width: 30px;
+         }
+
+         .modal-info-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: #991d1d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+         }
+
+         .modal-info-section p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #e0e0e0;
+         }
+
+         .modal-taller-footer {
+            padding: 25px 30px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+         }
+
+         .btn-inscribirse {
+            background: linear-gradient(135deg, #991d1d 0%, #c92a2a 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(153, 29, 29, 0.4);
+         }
+
+         .btn-inscribirse:hover {
+            background: linear-gradient(135deg, #c92a2a 0%, #991d1d 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(153, 29, 29, 0.6);
+         }
+
+         .btn-inscribirse i {
+            margin-right: 10px;
+         }
+
+         /* Responsive */
+         @media (max-width: 768px) {
+            .modal-taller-content {
+               width: 95%;
+               margin: 5% auto;
+            }
+
+            .modal-taller-header {
+               height: 200px;
+            }
+
+            .modal-taller-titulo {
+               font-size: 24px;
+               left: 20px;
+            }
+
+            .modal-taller-body {
+               padding: 20px;
+            }
+
+            .modal-info-section {
+               padding: 15px;
+            }
+
+            .modal-info-section i {
+               font-size: 20px;
+               margin-right: 15px;
+            }
+
+            .modal-info-section h3 {
+               font-size: 16px;
+            }
+
+            .modal-info-section p {
+               font-size: 14px;
+            }
+
+            .btn-inscribirse {
+               padding: 12px 30px;
+               font-size: 16px;
+            }
+         }
+      </style>
+
+      <script>
+         // Datos de los talleres
+         const talleres = {
+            danza: {
+               titulo: 'DANZA',
+               imagen: 'img-actu/danza1.jpg',
+               descripcion: 'Explora el arte del movimiento y la expresión corporal. Aprende diversos estilos de danza y desarrolla tu creatividad artística mientras mejoras tu condición física y coordinación.',
+               horario: 'Lunes a Viernes: 3:00 PM - 5:00 PM',
+               ubicacion: 'Salón de Danza - Edificio Cultural',
+               instructor: 'Por asignar',
+               cupo: '25 estudiantes'
+            },
+            oratoria: {
+               titulo: 'ORATORIA',
+               imagen: 'img-actu/ora-3.jpeg',
+               descripcion: 'Desarrolla tus habilidades de comunicación y expresión oral. Aprende técnicas de oratoria, debate y presentaciones en público para desenvolverte con confianza en cualquier situación.',
+               horario: 'Martes y Jueves: 2:00 PM - 4:00 PM',
+               ubicacion: 'Aula 201 - Edificio Principal',
+               instructor: 'Por asignar',
+               cupo: '20 estudiantes'
+            },
+            arte: {
+               titulo: 'ARTE Y MÚSICA',
+               imagen: 'img-actu/music.jpg',
+               descripcion: 'Descubre tu talento artístico a través de la música y las artes visuales. Aprende a tocar instrumentos, técnicas de pintura, dibujo y expresión artística.',
+               horario: 'Lunes, Miércoles y Viernes: 3:00 PM - 5:00 PM',
+               ubicacion: 'Salón de Música - Edificio Cultural',
+               instructor: 'Por asignar',
+               cupo: '30 estudiantes'
+            },
+            atletismo: {
+               titulo: 'ATLETISMO',
+               imagen: 'img-actu/atle3-pica.png',
+               descripcion: 'Desarrolla tu velocidad, resistencia y fuerza. Participa en disciplinas como carreras, saltos y lanzamientos mientras representas al CBTis 258 en competencias.',
+               horario: 'Lunes a Viernes: 4:00 PM - 6:00 PM',
+               ubicacion: 'Pista de Atletismo y Campo Deportivo',
+               instructor: 'Por asignar',
+               cupo: '40 estudiantes'
+            },
+            futbol: {
+               titulo: 'FÚTBOL',
+               imagen: 'img-actu/FUT.JPG',
+               descripcion: 'Únete al equipo de fútbol del CBTis 258. Mejora tu técnica, estrategia y trabajo en equipo mientras compites en torneos interescolares.',
+               horario: 'Martes y Jueves: 4:00 PM - 6:00 PM',
+               ubicacion: 'Cancha de Fútbol Principal',
+               instructor: 'Por asignar',
+               cupo: '30 estudiantes'
+            },
+            basquet: {
+               titulo: 'BASQUETBOL',
+               imagen: 'img-actu/BAS.JPG',
+               descripcion: 'Desarrolla tus habilidades en el baloncesto. Aprende técnicas de tiro, defensa, y jugadas en equipo mientras participas en competencias escolares.',
+               horario: 'Lunes y Miércoles: 4:00 PM - 6:00 PM',
+               ubicacion: 'Cancha de Basquetbol Techada',
+               instructor: 'Por asignar',
+               cupo: '25 estudiantes'
+            },
+            voleibol: {
+               titulo: 'VOLEIBOL',
+               imagen: 'img-actu/VOL.JPG',
+               descripcion: 'Practica voleibol y mejora tu coordinación, reflejos y trabajo en equipo. Participa en torneos y representa a tu escuela con orgullo.',
+               horario: 'Martes y Jueves: 3:00 PM - 5:00 PM',
+               ubicacion: 'Cancha de Voleibol',
+               instructor: 'Por asignar',
+               cupo: '24 estudiantes'
+            },
+            escolta: {
+               titulo: 'ESCOLTA',
+               imagen: 'img-actu/escolt.jpg',
+               descripcion: 'Forma parte de la escolta oficial del CBTis 258. Aprende protocolo, marcha y representación en ceremonias cívicas con disciplina y honor.',
+               horario: 'Lunes a Viernes: 2:30 PM - 4:00 PM',
+               ubicacion: 'Patio Cívico',
+               instructor: 'Por asignar',
+               cupo: '15 estudiantes'
+            },
+            banda: {
+               titulo: 'BANDA DE GUERRA',
+               imagen: 'img-actu/banda-2.jpeg',
+               descripcion: 'Únete a la banda de guerra y aprende a tocar instrumentos de percusión y viento. Participa en desfiles y ceremonias representando al CBTis 258.',
+               horario: 'Lunes a Jueves: 3:00 PM - 5:00 PM',
+               ubicacion: 'Salón de Música - Área de Bandas',
+               instructor: 'Por asignar',
+               cupo: '35 estudiantes'
+            }
+         };
+
+         function abrirModalTaller(tallerId) {
+            const taller = talleres[tallerId];
+            if (!taller) return;
+
+            document.getElementById('modalTitulo').textContent = taller.titulo;
+            document.getElementById('modalImagen').src = taller.imagen;
+            document.getElementById('modalDescripcion').textContent = taller.descripcion;
+            document.getElementById('modalHorario').textContent = taller.horario;
+            document.getElementById('modalUbicacion').textContent = taller.ubicacion;
+            document.getElementById('modalInstructor').textContent = taller.instructor;
+            document.getElementById('modalCupo').textContent = taller.cupo;
+
+            document.getElementById('modalTaller').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+         }
+
+         function cerrarModalTaller() {
+            document.getElementById('modalTaller').style.display = 'none';
+            document.body.style.overflow = 'auto';
+         }
+
+         // Cerrar modal al hacer clic fuera
+         window.onclick = function(event) {
+            const modal = document.getElementById('modalTaller');
+            if (event.target == modal) {
+               cerrarModalTaller();
+            }
+         }
+
+         // Cerrar modal con tecla ESC
+         document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+               cerrarModalTaller();
+            }
+         });
+      </script>
+
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>

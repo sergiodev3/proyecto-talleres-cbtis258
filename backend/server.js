@@ -134,12 +134,14 @@ import tallerRoutes from './routes/talleres.js';
 import avisosRoutes from './routes/avisos.js';
 import calendarioRoutes from './routes/calendario.js';
 import adminRoutes from './routes/admin.js';
+import informacionEmergenciaRoutes from './routes/informacionEmergencia.js';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/talleres', tallerRoutes);
 app.use('/api/avisos', avisosRoutes);
 app.use('/api/calendario', calendarioRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/informacion-emergencia', informacionEmergenciaRoutes);
 
 // Middleware de manejo de errores global
 app.use((err, req, res, next) => {

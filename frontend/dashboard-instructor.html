@@ -75,6 +75,12 @@
                         <p>Alumnos inscritos</p>
                     </a>
                 </li>
+                 <li>
+                    <a href="#" onclick="cerrarSesion()">
+                        <i class="pe-7s-power"></i>
+                        <p>Cerrar Sesión</p>
+                    </a>
+                </li>
             </ul>
     	</div>
     </div>
@@ -298,7 +304,36 @@
                                 <p class="category">Publica avisos importantes para tus alumnos</p>
                             </div>
                             <div class="content">
-                                <p>Sección en desarrollo...</p>
+                                <button class="btn btn-info btn-fill" onclick="mostrarModalAviso()">
+                                    <i class="pe-7s-plus"></i> Nuevo Aviso
+                                </button>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Taller</th>
+                                                        <th>Título</th>
+                                                        <th>Contenido</th>
+                                                        <th>Fecha Publicación</th>
+                                                        <th>Importante</th>
+                                                        <th>Estado</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tabla-avisos">
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">
+                                                            <i class="pe-7s-refresh" style="font-size: 24px;"></i>
+                                                            <p>Cargando avisos...</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -317,7 +352,56 @@
                                 <p class="category">Lista de alumnos en tus talleres</p>
                             </div>
                             <div class="content">
-                                <p>Sección en desarrollo...</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Seleccionar Taller</label>
+                                            <select class="form-control" id="select-taller-alumnos" onchange="cargarAlumnosPorTaller()">
+                                                <option value="">Selecciona un taller...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Buscar Alumno</label>
+                                            <input type="text" class="form-control" id="buscar-alumno" placeholder="Nombre, No. Control..." onkeyup="buscarAlumno()">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <div>
+                                                <span class="label label-info" id="total-alumnos">0 alumnos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No. Control</th>
+                                                        <th>Nombre Completo</th>
+                                                        <th>Grupo</th>
+                                                        <th>Semestre</th>
+                                                        <th>Email</th>
+                                                        <th>Teléfono</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tabla-alumnos">
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">
+                                                            <p>Selecciona un taller para ver los alumnos inscritos</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -361,6 +445,142 @@
     </div>
 </div>
 
+<!-- Modal para Crear/Editar Aviso -->
+<div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="cerrarModalAviso()">&times;</button>
+                <h4 class="modal-title" id="tituloModalAviso">Nuevo Aviso</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formAviso">
+                    <input type="hidden" id="aviso-id">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Taller *</label>
+                                <select class="form-control" id="aviso-taller" required>
+                                    <option value="">Selecciona un taller...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Título *</label>
+                                <input type="text" class="form-control" id="aviso-titulo" placeholder="Título del aviso" required maxlength="200">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div>
+                                    <label style="cursor: pointer; display: flex; align-items: center; margin-top: 8px;">
+                                        <input type="checkbox" id="aviso-importante" style="width: 18px; height: 18px; margin-right: 8px; cursor: pointer;">
+                                        <strong>Marcar como importante</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Contenido *</label>
+                                <textarea class="form-control" id="aviso-contenido" rows="5" placeholder="Escribe el contenido del aviso..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fecha de Publicación *</label>
+                                <input type="datetime-local" class="form-control" id="aviso-fecha-publicacion" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fecha de Expiración (opcional)</label>
+                                <input type="datetime-local" class="form-control" id="aviso-fecha-expiracion">
+                                <small class="form-text text-muted">Deja vacío si no expira</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="cerrarModalAviso()">Cancelar</button>
+                <button type="button" class="btn btn-info btn-fill" onclick="guardarAviso()">Guardar Aviso</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Información de Emergencia -->
+<div class="modal fade" id="modalEmergencia" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="cerrarModalEmergencia()">&times;</button>
+                <h4 class="modal-title">Información de Emergencia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><strong id="emergencia-nombre-alumno"></strong></h5>
+                        <p class="text-muted" id="emergencia-datos-alumno"></p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="pe-7s-call"></i> Contacto de Emergencia</h5>
+                        <table class="table">
+                            <tr>
+                                <td><strong>Nombre:</strong></td>
+                                <td id="emergencia-contacto-nombre">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Teléfono:</strong></td>
+                                <td id="emergencia-contacto-telefono">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Relación:</strong></td>
+                                <td id="emergencia-contacto-relacion">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="pe-7s-note2"></i> Información Médica</h5>
+                        <table class="table">
+                            <tr>
+                                <td><strong>Tipo de Sangre:</strong></td>
+                                <td id="emergencia-tipo-sangre">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Alergias:</strong></td>
+                                <td id="emergencia-alergias">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Medicamentos:</strong></td>
+                                <td id="emergencia-medicamentos">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Condiciones:</strong></td>
+                                <td id="emergencia-condiciones">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="cerrarModalEmergencia()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 
@@ -420,6 +640,20 @@
                     } else {
                         inicializarCalendario();
                     }
+                }, 100);
+            }
+            
+            // Si se muestra avisos, cargar avisos
+            if (seccion === 'avisos') {
+                setTimeout(() => {
+                    cargarAvisos();
+                }, 100);
+            }
+            
+            // Si se muestra alumnos, cargar talleres
+            if (seccion === 'alumnos') {
+                setTimeout(() => {
+                    cargarTalleresParaAlumnos();
                 }, 100);
             }
         }
@@ -848,6 +1082,431 @@ ${evento.extendedProps.description ? 'Descripción: ' + evento.extendedProps.des
         function cerrarSesion() {
             localStorage.removeItem('token');
             window.location.href = 'index.html';
+        }
+        
+        // ============================================
+        // FUNCIONES PARA MÓDULO DE AVISOS
+        // ============================================
+        
+        let avisosData = []; // Almacenar avisos para búsqueda
+        
+        // Cargar avisos cuando se muestra la sección
+        function mostrarSeccionAvisos() {
+            mostrarSeccion('avisos');
+            cargarAvisos();
+        }
+        
+        // Cargar avisos del instructor
+        async function cargarAvisos() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/avisos/mis-avisos`, {
+                    params: { limit: 100 }
+                });
+                
+                avisosData = response.data.data || [];
+                mostrarAvisosEnTabla(avisosData);
+                
+            } catch (error) {
+                console.error('❌ Error al cargar avisos:', error);
+                document.getElementById('tabla-avisos').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center text-danger">
+                            <i class="pe-7s-attention"></i>
+                            <p>Error al cargar los avisos</p>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        
+        // Mostrar avisos en la tabla
+        function mostrarAvisosEnTabla(avisos) {
+            const tbody = document.getElementById('tabla-avisos');
+            
+            if (!avisos || avisos.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <i class="pe-7s-info"></i>
+                            <p>No tienes avisos registrados</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = avisos.map(aviso => {
+                const fecha = new Date(aviso.fecha_publicacion).toLocaleString('es-MX');
+                const importante = aviso.importante ? '<span class="label label-danger">Importante</span>' : '';
+                const estadoClass = aviso.activo ? 'success' : 'default';
+                const estadoTexto = aviso.activo ? 'Activo' : 'Inactivo';
+                const contenidoCorto = aviso.contenido.length > 50 
+                    ? aviso.contenido.substring(0, 50) + '...' 
+                    : aviso.contenido;
+                
+                return `
+                    <tr>
+                        <td><strong>${aviso.taller_nombre || 'Sin taller'}</strong></td>
+                        <td>${aviso.titulo}</td>
+                        <td>${contenidoCorto}</td>
+                        <td>${fecha}</td>
+                        <td>${importante}</td>
+                        <td><span class="label label-${estadoClass}">${estadoTexto}</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="verDetalleAviso('${aviso.id}')" title="Ver detalle">
+                                <i class="pe-7s-look"></i>
+                            </button>
+                            <button class="btn btn-warning btn-sm" onclick="editarAviso('${aviso.id}')" title="Editar">
+                                <i class="pe-7s-pen"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarAviso('${aviso.id}')" title="Eliminar">
+                                <i class="pe-7s-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // Mostrar modal para crear aviso
+        async function mostrarModalAviso(avisoId = null) {
+            document.getElementById('tituloModalAviso').textContent = avisoId ? 'Editar Aviso' : 'Nuevo Aviso';
+            document.getElementById('modalAviso').style.display = 'block';
+            document.querySelector('#modalAviso .modal-dialog').parentElement.classList.add('in');
+            document.querySelector('#modalAviso .modal-dialog').parentElement.style.display = 'block';
+            
+            // Cargar talleres en el select
+            await cargarTalleresParaAvisos();
+            
+            // Si es edición, cargar datos del aviso
+            if (avisoId) {
+                const aviso = avisosData.find(a => a.id === avisoId);
+                if (aviso) {
+                    document.getElementById('aviso-id').value = aviso.id;
+                    document.getElementById('aviso-taller').value = aviso.taller_id;
+                    document.getElementById('aviso-titulo').value = aviso.titulo;
+                    document.getElementById('aviso-contenido').value = aviso.contenido;
+                    document.getElementById('aviso-importante').checked = aviso.importante;
+                    
+                    // Formatear fechas para datetime-local
+                    if (aviso.fecha_publicacion) {
+                        const fechaPub = new Date(aviso.fecha_publicacion);
+                        document.getElementById('aviso-fecha-publicacion').value = 
+                            fechaPub.toISOString().slice(0, 16);
+                    }
+                    if (aviso.fecha_expiracion) {
+                        const fechaExp = new Date(aviso.fecha_expiracion);
+                        document.getElementById('aviso-fecha-expiracion').value = 
+                            fechaExp.toISOString().slice(0, 16);
+                    }
+                }
+            } else {
+                // Limpiar formulario
+                document.getElementById('formAviso').reset();
+                document.getElementById('aviso-id').value = '';
+                
+                // Establecer fecha actual como predeterminada
+                const ahora = new Date();
+                document.getElementById('aviso-fecha-publicacion').value = 
+                    ahora.toISOString().slice(0, 16);
+            }
+        }
+        
+        // Cerrar modal de aviso
+        function cerrarModalAviso() {
+            document.getElementById('modalAviso').style.display = 'none';
+            document.querySelector('#modalAviso .modal-dialog').parentElement.classList.remove('in');
+            document.getElementById('formAviso').reset();
+        }
+        
+        // Cargar talleres para avisos
+        async function cargarTalleresParaAvisos() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/talleres/mis-talleres`);
+                const talleres = response.data.data || [];
+                
+                const select = document.getElementById('aviso-taller');
+                select.innerHTML = '<option value="">Selecciona un taller...</option>';
+                
+                talleres.forEach(taller => {
+                    const option = document.createElement('option');
+                    option.value = taller.id;
+                    option.textContent = `${taller.nombre} (${taller.categoria})`;
+                    select.appendChild(option);
+                });
+                
+            } catch (error) {
+                console.error('❌ Error al cargar talleres:', error);
+                alert('Error al cargar la lista de talleres');
+            }
+        }
+        
+        // Guardar aviso (crear o actualizar)
+        async function guardarAviso() {
+            const avisoId = document.getElementById('aviso-id').value;
+            const taller_id = document.getElementById('aviso-taller').value;
+            const titulo = document.getElementById('aviso-titulo').value.trim();
+            const contenido = document.getElementById('aviso-contenido').value.trim();
+            const importante = document.getElementById('aviso-importante').checked;
+            const fecha_publicacion = document.getElementById('aviso-fecha-publicacion').value;
+            const fecha_expiracion = document.getElementById('aviso-fecha-expiracion').value || null;
+            
+            // Validar campos requeridos
+            if (!taller_id || !titulo || !contenido || !fecha_publicacion) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+            
+            try {
+                const data = {
+                    taller_id,
+                    titulo,
+                    contenido,
+                    importante,
+                    fecha_publicacion,
+                    fecha_expiracion
+                };
+                
+                if (avisoId) {
+                    // Actualizar aviso existente
+                    await axios.put(`${API_BASE_URL}/avisos/${avisoId}`, data);
+                    alert('✅ Aviso actualizado exitosamente');
+                } else {
+                    // Crear nuevo aviso
+                    await axios.post(`${API_BASE_URL}/avisos`, data);
+                    alert('✅ Aviso creado exitosamente');
+                }
+                
+                cerrarModalAviso();
+                await cargarAvisos();
+                
+            } catch (error) {
+                console.error('❌ Error al guardar aviso:', error);
+                alert(error.response?.data?.message || 'Error al guardar el aviso');
+            }
+        }
+        
+        // Ver detalle del aviso
+        function verDetalleAviso(avisoId) {
+            const aviso = avisosData.find(a => a.id === avisoId);
+            if (!aviso) return;
+            
+            const fecha = new Date(aviso.fecha_publicacion).toLocaleString('es-MX');
+            const expiracion = aviso.fecha_expiracion 
+                ? new Date(aviso.fecha_expiracion).toLocaleString('es-MX') 
+                : 'Sin expiración';
+            
+            const mensaje = `
+📋 Detalle del Aviso
+
+Taller: ${aviso.taller_nombre}
+Título: ${aviso.titulo}
+Contenido: ${aviso.contenido}
+Fecha de publicación: ${fecha}
+Fecha de expiración: ${expiracion}
+Importante: ${aviso.importante ? 'Sí' : 'No'}
+Estado: ${aviso.activo ? 'Activo' : 'Inactivo'}
+            `.trim();
+            
+            alert(mensaje);
+        }
+        
+        // Editar aviso
+        function editarAviso(avisoId) {
+            mostrarModalAviso(avisoId);
+        }
+        
+        // Eliminar aviso
+        async function eliminarAviso(avisoId) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este aviso?')) {
+                return;
+            }
+            
+            try {
+                await axios.delete(`${API_BASE_URL}/avisos/${avisoId}`);
+                alert('✅ Aviso eliminado exitosamente');
+                await cargarAvisos();
+                
+            } catch (error) {
+                console.error('❌ Error al eliminar aviso:', error);
+                alert(error.response?.data?.message || 'Error al eliminar el aviso');
+            }
+        }
+        
+        // ============================================
+        // FUNCIONES PARA MÓDULO DE ALUMNOS INSCRITOS
+        // ============================================
+        
+        let alumnosData = []; // Almacenar alumnos para búsqueda
+        let alumnosCompletos = []; // Almacenar todos los datos de alumnos
+        let tallerSeleccionadoId = '';
+        
+        // Cargar talleres para seleccionar
+        async function cargarTalleresParaAlumnos() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/talleres/mis-talleres`);
+                const talleres = response.data.data || [];
+                
+                const select = document.getElementById('select-taller-alumnos');
+                select.innerHTML = '<option value="">Selecciona un taller...</option>';
+                
+                talleres.forEach(taller => {
+                    const option = document.createElement('option');
+                    option.value = taller.id;
+                    option.textContent = `${taller.nombre} (${taller.categoria})`;
+                    select.appendChild(option);
+                });
+                
+            } catch (error) {
+                console.error('❌ Error al cargar talleres:', error);
+            }
+        }
+        
+        // Cargar alumnos por taller
+        async function cargarAlumnosPorTaller() {
+            const tallerId = document.getElementById('select-taller-alumnos').value;
+            tallerSeleccionadoId = tallerId;
+            
+            if (!tallerId) {
+                document.getElementById('tabla-alumnos').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <p>Selecciona un taller para ver los alumnos inscritos</p>
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('total-alumnos').textContent = '0 alumnos';
+                return;
+            }
+            
+            try {
+                document.getElementById('tabla-alumnos').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <i class="pe-7s-refresh" style="font-size: 24px;"></i>
+                            <p>Cargando alumnos...</p>
+                        </td>
+                    </tr>
+                `;
+                
+                const response = await axios.get(`${API_BASE_URL}/talleres/${tallerId}/alumnos`);
+                alumnosCompletos = response.data.data || [];
+                alumnosData = [...alumnosCompletos];
+                
+                mostrarAlumnosEnTabla(alumnosData);
+                document.getElementById('total-alumnos').textContent = `${alumnosData.length} alumno${alumnosData.length !== 1 ? 's' : ''}`;
+                
+            } catch (error) {
+                console.error('❌ Error al cargar alumnos:', error);
+                document.getElementById('tabla-alumnos').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center text-danger">
+                            <i class="pe-7s-attention"></i>
+                            <p>Error al cargar los alumnos inscritos</p>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        
+        // Mostrar alumnos en la tabla
+        function mostrarAlumnosEnTabla(alumnos) {
+            const tbody = document.getElementById('tabla-alumnos');
+            
+            if (!alumnos || alumnos.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <i class="pe-7s-info"></i>
+                            <p>No hay alumnos inscritos en este taller</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = alumnos.map(alumno => {
+                const nombreCompleto = `${alumno.nombre} ${alumno.apellido_paterno} ${alumno.apellido_materno || ''}`.trim();
+                
+                return `
+                    <tr>
+                        <td><strong>${alumno.numero_control}</strong></td>
+                        <td>${nombreCompleto}</td>
+                        <td>${alumno.grupo || '-'}</td>
+                        <td>${alumno.semestre || '-'}</td>
+                        <td>${alumno.email || '-'}</td>
+                        <td>${alumno.telefono || '-'}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="verInformacionEmergencia('${alumno.perfil_id}')" title="Ver información de emergencia">
+                                <i class="pe-7s-attention"></i> Emergencia
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // Buscar alumno
+        function buscarAlumno() {
+            const busqueda = document.getElementById('buscar-alumno').value.toLowerCase().trim();
+            
+            if (!busqueda) {
+                alumnosData = [...alumnosCompletos];
+            } else {
+                alumnosData = alumnosCompletos.filter(alumno => {
+                    const nombreCompleto = `${alumno.nombre} ${alumno.apellido_paterno} ${alumno.apellido_materno || ''}`.toLowerCase();
+                    const numeroControl = (alumno.numero_control || '').toLowerCase();
+                    const email = (alumno.email || '').toLowerCase();
+                    
+                    return nombreCompleto.includes(busqueda) || 
+                           numeroControl.includes(busqueda) || 
+                           email.includes(busqueda);
+                });
+            }
+            
+            mostrarAlumnosEnTabla(alumnosData);
+            document.getElementById('total-alumnos').textContent = `${alumnosData.length} alumno${alumnosData.length !== 1 ? 's' : ''}`;
+        }
+        
+        // Ver información de emergencia
+        function verInformacionEmergencia(perfilId) {
+            const alumno = alumnosCompletos.find(a => a.perfil_id === perfilId);
+            if (!alumno) return;
+            
+            // Llenar modal con datos del alumno
+            const nombreCompleto = `${alumno.nombre} ${alumno.apellido_paterno} ${alumno.apellido_materno || ''}`.trim();
+            document.getElementById('emergencia-nombre-alumno').textContent = nombreCompleto;
+            document.getElementById('emergencia-datos-alumno').textContent = 
+                `${alumno.numero_control} | ${alumno.grupo || '-'} | Semestre ${alumno.semestre || '-'}`;
+            
+            // Información de contacto de emergencia
+            document.getElementById('emergencia-contacto-nombre').textContent = 
+                alumno.contacto_emergencia_nombre || 'No registrado';
+            document.getElementById('emergencia-contacto-telefono').textContent = 
+                alumno.contacto_emergencia_telefono || 'No registrado';
+            document.getElementById('emergencia-contacto-relacion').textContent = 
+                alumno.contacto_emergencia_relacion || 'No registrado';
+            
+            // Información médica
+            document.getElementById('emergencia-tipo-sangre').textContent = 
+                alumno.tipo_sangre || 'No registrado';
+            document.getElementById('emergencia-alergias').textContent = 
+                alumno.alergias || 'Ninguna registrada';
+            document.getElementById('emergencia-medicamentos').textContent = 
+                alumno.medicamentos || 'Ninguno registrado';
+            document.getElementById('emergencia-condiciones').textContent = 
+                alumno.condiciones_medicas || 'Ninguna registrada';
+            
+            // Mostrar modal
+            document.getElementById('modalEmergencia').style.display = 'block';
+            document.querySelector('#modalEmergencia .modal-dialog').parentElement.classList.add('in');
+            document.querySelector('#modalEmergencia .modal-dialog').parentElement.style.display = 'block';
+        }
+        
+        // Cerrar modal de emergencia
+        function cerrarModalEmergencia() {
+            document.getElementById('modalEmergencia').style.display = 'none';
+            document.querySelector('#modalEmergencia .modal-dialog').parentElement.classList.remove('in');
         }
     </script>
 
