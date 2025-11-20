@@ -39,7 +39,11 @@ const poolConfig = {
     query_timeout: 30000,     // 30 segundos máximo por query
     
     // Configuración de aplicación
-    application_name: 'talleres_cbtis258_api'
+    application_name: 'talleres_cbtis258_api',
+    
+    // IMPORTANTE: Configuración de encoding UTF-8
+    // Esto asegura que los caracteres especiales (acentos, ñ, etc) se manejen correctamente
+    client_encoding: 'UTF8'
 };
 
 // Crear el pool de conexiones
@@ -50,9 +54,16 @@ const pool = new Pool(poolConfig);
  */
 
 // Evento cuando se conecta un nuevo cliente
-pool.on('connect', (client) => {
-    if (process.env.NODE_ENV === 'development') {
-        console.log('🔗 Nueva conexión establecida con la base de datos');
+pool.on('connect', async (client) => {
+    // Configurar UTF-8 en cada nueva conexión
+    try {
+        await client.query("SET CLIENT_ENCODING TO 'UTF8'");
+        await client.query("SET NAMES 'UTF8'");
+        if (process.env.NODE_ENV === 'development') {
+            console.log('🔗 Nueva conexión establecida con la base de datos (UTF-8)');
+        }
+    } catch (err) {
+        console.error('❌ Error configurando encoding UTF-8:', err.message);
     }
 });
 
