@@ -1,6 +1,10 @@
-# 🏫 Sistema de Gestión de Talleres - CBTis 258
+# 🎓 Sistema de Gestión de Talleres - CBTis 258
 
-Sistema web integral para la gestión de talleres extracurriculares del Centro de Bachillerato Tecnológico industrial y de servicios No. 258 "Mariano Escobedo". Permite a los alumnos inscribirse a talleres culturales, deportivos y cívicos, mientras que los instructores pueden administrar sus talleres, eventos y alumnos inscritos.
+Sistema web completo para la gestión de talleres extracurriculares (culturales, deportivos y cívicos) del CBTis 258. Permite a los estudiantes inscribirse en talleres, consultar horarios y recibir avisos, mientras que los instructores pueden gestionar asistencias, calificaciones y comunicarse con sus alumnos.
+
+> **🚀 Versión Beta** - Noviembre 2025
+> 
+> Este proyecto está en fase beta. Estamos recopilando feedback de usuarios para mejorar el sistema. ¡Tus comentarios son bienvenidos!
 
 ## 📋 Tabla de Contenidos
 
