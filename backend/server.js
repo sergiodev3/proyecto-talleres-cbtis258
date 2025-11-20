@@ -21,6 +21,12 @@ const __dirname = dirname(__filename);
 // Crear aplicación Express
 const app = express();
 
+// CONFÍA EN EL PROXY DE RAILWAY (Y OTROS PROXIES)
+// Esta línea es crucial para que express-rate-limit funcione en producción.
+app.set('trust proxy', 1);
+
+
+
 // Configuración de seguridad con Helmet
 app.use(helmet({
     crossOriginEmbedderPolicy: false,
