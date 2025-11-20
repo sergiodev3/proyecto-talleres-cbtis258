@@ -81,9 +81,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Rate limiting - Protección contra ataques de fuerza bruta
+// Configuración más permisiva para fase de pruebas beta
 const limiter = rateLimit({
     windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutos
-    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // máximo 100 requests por ventana
+    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 1000, // 1000 requests por ventana (muy permisivo para beta)
     message: {
         error: 'Demasiadas solicitudes desde esta IP. Intenta de nuevo más tarde.',
         retryAfter: Math.ceil((parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000) / 1000)
@@ -96,19 +97,21 @@ const limiter = rateLimit({
     }
 });
 
-// Rate limiting más estricto para autenticación
+// Rate limiting para autenticación
+// Configuración permisiva para beta testing - ajustar después del testing
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutos
-    max: process.env.NODE_ENV === 'production' ? 5 : 100, // 5 en producción, 100 en desarrollo
+    max: parseInt(process.env.AUTH_RATE_LIMIT) || 50, // 50 intentos por defecto (permisivo para beta)
     message: {
-        error: 'Demasiados intentos de inicio de sesión. Intenta de nuevo en 15 minutos.',
+        error: 'Demasiados intentos de autenticación. Intenta de nuevo en 15 minutos.',
         retryAfter: 900
     },
     standardHeaders: true,
     legacyHeaders: false,
+    skipSuccessfulRequests: true, // No contar requests exitosos
     skip: (req) => {
-        // Skip en desarrollo si NODE_ENV no está en production
-        return process.env.NODE_ENV !== 'production';
+        // Permitir bypass con variable de entorno para testing
+        return process.env.DISABLE_RATE_LIMIT === 'true';
     }
 });
 
