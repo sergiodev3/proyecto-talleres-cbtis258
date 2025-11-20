@@ -36,26 +36,11 @@ app.use(helmet({
     },
 }));
 
-// Configuración de CORS más permisiva para desarrollo
+// CÓDIGO DE CORS SIMPLIFICADO PARA DEPURACIÓN
+
 const corsOptions = {
-    origin: function (origin, callback) {
-        // Permitir solicitudes sin origin (como aplicaciones móviles o curl)
-        if (!origin) return callback(null, true);
-        
-        const allowedOrigins = [
-            process.env.FRONTEND_URL || 'http://localhost:3000',
-            'http://127.0.0.1:5500', // Live Server
-            'http://localhost:5500',  // Live Server alternativo
-            'http://127.0.0.1:5501',
-            'http://localhost:5501'
-        ];
-        
-        if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    // Acepta explícitamente el origen de tu frontend de Vercel
+    origin: 'https://proyecto-talleres-cbtis258.vercel.app', 
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with'],
