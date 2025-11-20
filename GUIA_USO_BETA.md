@@ -491,9 +491,7 @@ erDiagram
    - ¿Qué fue fácil de usar?
 
 ### Reporta feedback por:
-- 📧 Email: [tu-email@cbtis258.edu.mx]
-- 💬 WhatsApp: [tu-numero]
-- 📝 Google Forms: [link-al-formulario]
+- 📧 Email: [sergio.sanchez@cbtis258.edu.mx]
 - 🐙 GitHub Issues: https://github.com/sergiodev3/proyecto-talleres-cbtis258/issues
 
 ---
