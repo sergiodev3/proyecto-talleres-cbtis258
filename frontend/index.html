@@ -51,16 +51,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                     <a class="nav-link" href="index.html">Principal</a>
+                     <a class="nav-link" href="#inicio">Inicio</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="culturales.html">Culturales</a>
+                     <a class="nav-link" href="#culturales">Culturales</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="deportes.html">Deportes</a>
+                     <a class="nav-link" href="#deportivos">Deportivos</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="civicos.html">Civicos</a>
+                     <a class="nav-link" href="#civicos">Cívicos</a>
                   </li>
                </ul>
                
@@ -95,7 +95,7 @@
       </div>
       <!-- banner section end -->
       <!-- arrival section start -->
-      <div class="arrival_section layout_padding">
+      <div id="inicio" class="arrival_section layout_padding">
          <div class="container">
             <div class="row">
                <div class="col-sm-6 col-lg-4">
@@ -131,7 +131,7 @@
       <div class="movies_section layout_padding">
          <div class="container">
          
-            <div class="movies_section_2 layout_padding">
+            <div id="culturales" class="movies_section_2 layout_padding">
                <h2 class="letest_text">CULTURALES</h2>
                <div class="movies_main">
                   <div class="iamge_movies_main">
@@ -176,8 +176,8 @@
                   </div>
                </div>
             </div>
-            <div class="movies_section_2 layout_padding">
-               <h2 class="letest_text">DEPORTIVAS</h2>
+            <div id="deportivos" class="movies_section_2 layout_padding">
+               <h2 class="letest_text">DEPORTIVOS</h2>
                <div class="movies_main">
                   <div class="iamge_movies_main">
                      <div class="iamge_movies">
@@ -235,8 +235,8 @@
                   </div>
                </div>
             </div>
-            <div class="movies_section_2 layout_padding">
-               <h2 class="letest_text"> ACTIVIDADES CIVICAS </h2>
+            <div id="civicos" class="movies_section_2 layout_padding">
+               <h2 class="letest_text">ACTIVIDADES CÍVICAS</h2>
                
                <div class="movies_main">
                   <div class="iamge_movies_main">
@@ -343,10 +343,12 @@
          <div class="container">
             <div class="footer_menu">
                <ul>
-                  <li><a href="index.html">Inicio</a></li>
-                  <li><a href="deportes.html">Deportes</a></li>
-                  <li><a href="culturales.html">Culturales</a></li>
-                  <li><a href="civicos.html">Civicos</a></li>
+                  <li><a href="#inicio">Inicio</a></li>
+                  <li><a href="#culturales">Culturales</a></li>
+                  <li><a href="#deportivos">Deportivos</a></li>
+                  <li><a href="#civicos">Cívicos</a></li>
+                  <li><a href="login.html">Ingresar</a></li>
+                  <li><a href="register.html">Registrarse</a></li>
                </ul>
             </div>
             <div class="social_icon">
@@ -635,6 +637,38 @@
       </style>
 
       <script>
+         // Smooth scrolling para enlaces de ancla
+         document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+               link.addEventListener('click', function(e) {
+                  const href = this.getAttribute('href');
+                  
+                  // Si es solo '#', no hacer nada
+                  if (href === '#') {
+                     e.preventDefault();
+                     return;
+                  }
+                  
+                  const targetId = href.substring(1);
+                  const targetElement = document.getElementById(targetId);
+                  
+                  if (targetElement) {
+                     e.preventDefault();
+                     
+                     // Calcular posición con offset para el header
+                     const offsetTop = targetElement.offsetTop - 80;
+                     
+                     window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                     });
+                  }
+               });
+            });
+         });
+
          // Datos de los talleres
          const talleres = {
             danza: {
