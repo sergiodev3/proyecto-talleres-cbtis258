@@ -1,8 +1,10 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
 
-dotenv.config();
-
+// Solo cargar variables de .env si NO estamos en producción
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 const { Pool } = pg;
 
 /**

@@ -8,7 +8,10 @@ import { dirname, join } from 'path';
 import { testConnection } from './database/config-db.js';
 
 // Configuración de variables de entorno
-dotenv.config();
+// Solo cargar variables de .env si NO estamos en producción
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
