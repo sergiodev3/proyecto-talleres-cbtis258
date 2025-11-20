@@ -7,6 +7,18 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { testConnection } from './database/config-db.js';
 
+
+// =================================================================
+// BLOQUE DE DEPURACIÓN TEMPORAL - ¡Eliminar después!
+console.log('--- INICIO DE DEPURACIÓN DE VARIABLES DE ENTORNO ---');
+console.log(`[DEBUG] Entorno (NODE_ENV): ${process.env.NODE_ENV}`);
+console.log(`[DEBUG] ¿Existe DATABASE_URL?: ${!!process.env.DATABASE_URL}`);
+console.log(`[DEBUG] DATABASE_URL (primeros 25 caracteres): ${String(process.env.DATABASE_URL).substring(0, 25)}`);
+console.log('--- FIN DE DEPURACIÓN ---');
+// =================================================================
+
+
+
 // Configuración de variables de entorno
 // Solo cargar variables de .env si NO estamos en producción
 if (process.env.NODE_ENV !== 'production') {
