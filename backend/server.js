@@ -36,11 +36,36 @@ app.use(helmet({
     },
 }));
 
-// CÓDIGO DE CORS SIMPLIFICADO PARA DEPURACIÓN
+
+// --- INICIO DE CONFIGURACIÓN DE CORS DEFINITIVA ---
+
+// Lista de orígenes permitidos
+const allowedOrigins = [
+    // URL de producción del Frontend (desde variable de entorno)
+    process.env.FRONTEND_URL,
+
+    // URLs de desarrollo local
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+    'http://127.0.0.1:5501',
+    'http://localhost:5501'
+];
 
 const corsOptions = {
-    // Acepta explícitamente el origen de tu frontend de Vercel
-    origin: 'https://proyecto-talleres-cbtis258.vercel.app', 
+    origin: function (origin, callback) {
+        // Permitir solicitudes sin 'origin' (como Postman o apps móviles)
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        // Si el origen de la petición está en nuestra lista, permitirlo
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            // Si no está en la lista, rechazarlo
+            callback(new Error('El acceso desde este origen no está permitido por la política de CORS.'));
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with'],
