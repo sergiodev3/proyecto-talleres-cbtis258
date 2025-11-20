@@ -1,7 +1,7 @@
 // frontend/js/config.js
 
 // URL de la API en producción (tu backend en Railway)
-const PRODUCTION_API_URL = 'backend-talleres-production.up.railway.app/api'; 
+const PRODUCTION_API_URL = 'https://backend-talleres-production.up.railway.app/api'; 
 
 // URL de la API en desarrollo (tu máquina local)
 const DEVELOPMENT_API_URL = 'http://localhost:5000/api';
